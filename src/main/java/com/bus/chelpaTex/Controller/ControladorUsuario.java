@@ -1,7 +1,6 @@
 package com.bus.chelpaTex.Controller;
 
 import java.net.URISyntaxException;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuthException;
 @RequestMapping("/webresources/controller/controladorUsuario")
 public class ControladorUsuario {
 	
-	private static final Logge logger = Logger.get
 	
 	@Autowired
 	ServicioUsuario servicioUsuario;

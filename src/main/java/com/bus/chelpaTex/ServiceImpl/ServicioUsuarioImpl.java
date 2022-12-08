@@ -3,6 +3,7 @@ package com.bus.chelpaTex.ServiceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ import com.bus.chelpaTex.Service.ServicioUsuarioRol;
 
 @Service
 public class ServicioUsuarioImpl implements ServicioUsuario {
+	
+	private static final Logger logger =  Logger.getLogger(ServicioUsuario.class.getName());
 	
 	@Autowired
 	ManejadorUsuario manejadorUsuario;
@@ -58,6 +61,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 			manejadorUsuario.save(usuario);
 		}
 		}catch(Exception e){
+			logger.info(e.getMessage() + e.getCause());
 			return null;
 		}
 			
@@ -87,6 +91,7 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 			}
 		}
 			catch(Exception e){
+				logger.info(e.getMessage() + e.getCause());
 				return null;
 			}
 				

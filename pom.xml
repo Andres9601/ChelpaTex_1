@@ -53,11 +53,6 @@
 			<artifactId>firebase-admin</artifactId>
 			<version>6.14.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi.ooxml</artifactId>
-			<version>5.0.0</version>
-		</dependency>
 	</dependencies>
 
 	<build>

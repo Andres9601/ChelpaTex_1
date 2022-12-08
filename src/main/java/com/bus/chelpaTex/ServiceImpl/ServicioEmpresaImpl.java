@@ -1,5 +1,7 @@
 package com.bus.chelpaTex.ServiceImpl;
 
+import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,9 @@ import com.bus.chelpaTex.Service.ServicioEmpresa;
 @Service
 public class ServicioEmpresaImpl implements ServicioEmpresa {
 
+	private static final Logger logger =  Logger.getLogger(ServicioEmpresa.class.getName());
+
+	
 	@Autowired
 	ManejadorEmpresa manejadorEmpresa;
 	
@@ -25,6 +30,7 @@ public class ServicioEmpresaImpl implements ServicioEmpresa {
 			manejadorEmpresa.save(empresa);
 			return empresaDTO;
 		}catch(Exception e){
+			logger.info(e.getMessage() + e.getCause());
 			return null;
 		}
 	}

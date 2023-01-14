@@ -40,7 +40,7 @@ public class ControladorDiseno {
     	try {
     		return ResponseEntity.ok(servicioDiseno.crear(disenoDTO));
     	}catch(Exception e){
-    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede guardar la coleccion ");
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede guardar el diseno ");
     	}
 	}
 

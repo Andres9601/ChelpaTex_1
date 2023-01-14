@@ -25,7 +25,7 @@ public class Cif {
 	@GeneratedValue(generator = "SEQ_CIF")
     @GenericGenerator(name = "SEQ_CIF", strategy = "increment")
 	@Column(name = "id_cif")
-	private Long idColeccion;
+	private Long idCif;
 	
 	@Column(name = "tipo_cif")
 	private String tipoCif;

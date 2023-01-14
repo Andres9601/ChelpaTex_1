@@ -13,12 +13,11 @@ import com.bus.chelpaTex.DTO.ColeccionDTO;
 import com.bus.chelpaTex.Entity.Coleccion;
 import com.bus.chelpaTex.Repo.ManejadorColeccion;
 import com.bus.chelpaTex.Service.ServicioColeccion;
-import com.bus.chelpaTex.Service.ServicioUsuario;
 
 @Service
 public class ServicioColeccionImpl implements ServicioColeccion {
 	
-	private static final Logger logger =  Logger.getLogger(ServicioUsuario.class.getName());
+	private static final Logger logger =  Logger.getLogger(ServicioColeccion.class.getName());
 
 
 

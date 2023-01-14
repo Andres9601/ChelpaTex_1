@@ -18,8 +18,6 @@ public class RegistroDTO implements Serializable{/**
 	
 	UsuarioDTO usuarioDTO;
 	
-	EmpresaDTO empresaDTO;
-	
 	RolDTO rolDTO;
 	
 }

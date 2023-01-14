@@ -57,7 +57,7 @@ public class ControladorUsuario {
     	try {
     		return ResponseEntity.ok(servicioUsuario.registrarUsuario(registroDTO));
     	}catch(Exception e){
-    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede registrar el usuario "+ e);
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede registrar el usuario ");
     	}
 	}
 }

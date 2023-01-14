@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class UsuarioRolPK implements Serializable{
+public class MoldeItemPK implements Serializable{
 
 	/**
 	 * 
@@ -24,14 +24,14 @@ public class UsuarioRolPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	 	@Basic(optional = false)
-	    @Column(name = "id_rol")
+	    @Column(name = "id_item")
 
-	    private Long idRol;
+	    private Long idItem;
 
 	    @Basic(optional = false)
-	    @Column(name = "id_usuario")
+	    @Column(name = "id_molde")
 
-	    private String idUsuario;
+	    private Long idMolde;
 	
 	
 

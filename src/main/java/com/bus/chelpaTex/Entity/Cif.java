@@ -3,9 +3,10 @@ package com.bus.chelpaTex.Entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,8 @@ import lombok.NoArgsConstructor;
 public class Cif {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "SEQ_CIF")
+    @GenericGenerator(name = "SEQ_CIF", strategy = "increment")
 	@Column(name = "id_cif")
 	private Long idColeccion;
 	

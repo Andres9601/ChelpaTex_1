@@ -20,9 +20,9 @@ public class ServicioRolImpl implements ServicioRol{
 	@Override
 	public List<RolDTO> consultar() {
 		List<Rol> rolesTemp = manejadorRol.findAll();
-		RolDTO rolDto = new RolDTO();
 		List<RolDTO> roles = new ArrayList<RolDTO>();
 		for (Rol rol : rolesTemp) {
+			RolDTO rolDto = new RolDTO();
 			rolDto.setIdRol(rol.getIdRol());
 			rolDto.setRol(rol.getRol());
 			rolDto.setActivo(rol.getActivo());

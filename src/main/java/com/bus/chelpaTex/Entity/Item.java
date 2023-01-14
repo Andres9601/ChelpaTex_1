@@ -4,11 +4,12 @@ package com.bus.chelpaTex.Entity;
 	import javax.persistence.Column;
 	import javax.persistence.Entity;
 	import javax.persistence.GeneratedValue;
-	import javax.persistence.GenerationType;
 	import javax.persistence.Id;
 	import javax.persistence.Table;
 
-	import lombok.AllArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+
+import lombok.AllArgsConstructor;
 	import lombok.Data;
 	import lombok.EqualsAndHashCode;
 	import lombok.NoArgsConstructor;
@@ -22,7 +23,8 @@ package com.bus.chelpaTex.Entity;
 	public class Item {
 		
 		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		@GeneratedValue(generator = "SEQ_ITEM")
+	    @GenericGenerator(name = "SEQ_ITEM", strategy = "increment")
 		@Column(name = "id_item")
 		private Long idItem;
 		

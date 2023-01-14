@@ -12,7 +12,7 @@ import com.bus.chelpaTex.DTO.ColeccionDTO;
 public interface ServicioColeccion {
 	
 	@Qualifier("ServicioColeccionImpl")
-	public List<ColeccionDTO> consultar (String IdUsuario);
+	public List<ColeccionDTO> consultar (String idUsuario);
 	
 	@Qualifier("ServicioColeccionImpl")
 	public ColeccionDTO crear (ColeccionDTO coleccionDTO);

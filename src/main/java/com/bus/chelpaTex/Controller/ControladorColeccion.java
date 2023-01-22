@@ -36,8 +36,22 @@ public class ControladorColeccion {
 		
 	}
 	
+	
+	@GetMapping(path= "/consultarColeccionesUsuario", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> consultarColeccionesUsuario(@RequestParam(value = "idUsuario") String idUsuario) throws URISyntaxException{
+		
+		try { 
+			return ResponseEntity.ok(servicioColeccion.consultarColeccionesUsuario(idUsuario));
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);
+		}
+		
+	}
+	
+	
 	@PostMapping(path = "/crear", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> createUserFirebase(@RequestBody ColeccionDTO coleccionDTO )throws Exception {
+	public ResponseEntity<?> creaar (@RequestBody ColeccionDTO coleccionDTO )throws Exception {
     	try {
     		return ResponseEntity.ok(servicioColeccion.crear(coleccionDTO));
     	}catch(Exception e){
@@ -53,5 +67,27 @@ public class ControladorColeccion {
     		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede eliminar la coleccion ");
     	}
 	}
+	
+	@PostMapping(path = "/nuevaColeccion", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> nuevaColeccion(@RequestBody ColeccionDTO coleccionDTO )throws Exception {
+    	try {
+    		return ResponseEntity.ok(servicioColeccion.nuevaColeccion(coleccionDTO));
+    	}catch(Exception e){
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede guardar la coleccion ");
+    	}
+	}
+	
+	@GetMapping(path= "/consultarColeccionCompleta", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> consultarColeccionCompleta(@RequestBody ColeccionDTO coleccionDTO) throws URISyntaxException{
+		
+		try { 
+			return ResponseEntity.ok(servicioColeccion.consultarColeccionCompleta(coleccionDTO));
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);
+		}
+		
+	}
+	
 	
 }

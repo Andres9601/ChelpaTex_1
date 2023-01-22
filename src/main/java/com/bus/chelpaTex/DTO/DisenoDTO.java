@@ -48,4 +48,16 @@ public class DisenoDTO implements Serializable{
 	private Long precioSugeridoVenta;
 	
 	private Boolean activo;
+
+	public DisenoDTO(Long idDiseno, String nombre, Long idMolde, Long unidades, Long totalEstimado) {
+		super();
+		this.idDiseno = idDiseno;
+		this.nombre = nombre;
+		this.idMolde = idMolde;
+		this.unidades = unidades;
+		this.totalEstimado = totalEstimado;
+	}
+	
+	
+	
 }

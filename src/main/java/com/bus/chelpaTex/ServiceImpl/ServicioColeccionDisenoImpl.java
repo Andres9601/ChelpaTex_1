@@ -25,6 +25,7 @@ public class ServicioColeccionDisenoImpl implements ServicioColeccionDiseno{
 			coleccionDiseno.setColeccionDisenoPK(coleccionDisenoDTO.getColeccionDisenoPK());	
 			coleccionDiseno.setActivo(true);
 			manejadorColeccionDiseno.save(coleccionDiseno);
+			coleccionDisenoDTO.setActivo(coleccionDiseno.getActivo());
 			return coleccionDisenoDTO;
 		}catch(Exception e){
 			logger.info(e.getMessage() + e.getCause());

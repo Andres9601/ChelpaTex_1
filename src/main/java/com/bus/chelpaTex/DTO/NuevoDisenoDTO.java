@@ -17,6 +17,8 @@ public class NuevoDisenoDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 		
+	private Long idColeccion;
+	
 	private String idUsuario;
 	
 	private String nombre;

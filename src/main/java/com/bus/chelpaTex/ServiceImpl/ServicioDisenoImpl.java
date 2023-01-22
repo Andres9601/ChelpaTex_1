@@ -8,14 +8,17 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bus.chelpaTex.DTO.ColeccionDisenoDTO;
 import com.bus.chelpaTex.DTO.DisenoDTO;
 import com.bus.chelpaTex.DTO.MoldeDTO;
 import com.bus.chelpaTex.DTO.NuevoDisenoDTO;
 import com.bus.chelpaTex.DTO.NuevoDisenoRespuesta;
+import com.bus.chelpaTex.Entity.ColeccionDisenoPK;
 import com.bus.chelpaTex.Entity.Diseno;
 import com.bus.chelpaTex.Entity.Molde;
 import com.bus.chelpaTex.Repo.ManejadorDiseno;
 import com.bus.chelpaTex.Repo.ManejadorMolde;
+import com.bus.chelpaTex.Service.ServicioColeccionDiseno;
 import com.bus.chelpaTex.Service.ServicioDiseno;
 
 @Service
@@ -29,6 +32,9 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 	
 	@Autowired
 	ManejadorMolde manejadorMolde;
+	
+	@Autowired
+	ServicioColeccionDiseno servicioColeccionDiseno;
 	
 	@Override
 	public List<DisenoDTO> consultar(String idUsuario) {
@@ -89,6 +95,8 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		DisenoDTO diseno = new DisenoDTO();
 		diseno.setNombre(nuevoDisenoDTO.getNombre());
 		diseno.setIdUsuario(nuevoDisenoDTO.getIdUsuario());
+		diseno.setTotalEstimado(0L);
+		diseno.setIdMolde(1L);
 		DisenoDTO disenor = new DisenoDTO();
 		disenor = this.crear(diseno);
 		NuevoDisenoRespuesta respuesta = new NuevoDisenoRespuesta();
@@ -119,6 +127,12 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 			
 		}
 		respuesta.setMoldes(moldes);
+		ColeccionDisenoDTO coleccionDisenoDTO = new ColeccionDisenoDTO();
+		ColeccionDisenoPK coleccionDisenoPK = new ColeccionDisenoPK();
+		coleccionDisenoPK.setIdColeccion(nuevoDisenoDTO.getIdColeccion());
+		coleccionDisenoPK.setIdDiseno(disenor.getIdDiseno());
+		coleccionDisenoDTO.setColeccionDisenoPK(coleccionDisenoPK);
+		servicioColeccionDiseno.crear(coleccionDisenoDTO);
 		
 		return respuesta;
 	}

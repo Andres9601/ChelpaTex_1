@@ -101,7 +101,7 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 			coleccionTemp.setNombre(coleccion.getNombre());
 			coleccionTemp.setFechaCreacion(coleccion.getFechaCreacion());
 			coleccionTemp.setActivo(coleccion.getActivo());
-			Long numeroDisenos = manejadorColeccionDiseno.count();
+			Long numeroDisenos = (long) manejadorColeccionDiseno.disenosColeccion(coleccion.getIdColeccion()).size();
 			coleccionTemp.setNumeroDisenos(numeroDisenos);
 			colecciones.add(coleccionTemp);
 		}

@@ -9,8 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bus.chelpaTex.DTO.DisenoDTO;
+import com.bus.chelpaTex.DTO.MoldeDTO;
+import com.bus.chelpaTex.DTO.NuevoDisenoDTO;
+import com.bus.chelpaTex.DTO.NuevoDisenoRespuesta;
 import com.bus.chelpaTex.Entity.Diseno;
+import com.bus.chelpaTex.Entity.Molde;
 import com.bus.chelpaTex.Repo.ManejadorDiseno;
+import com.bus.chelpaTex.Repo.ManejadorMolde;
 import com.bus.chelpaTex.Service.ServicioDiseno;
 
 @Service
@@ -21,6 +26,9 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 	
 	@Autowired
 	ManejadorDiseno manejadorDiseno;
+	
+	@Autowired
+	ManejadorMolde manejadorMolde;
 	
 	@Override
 	public List<DisenoDTO> consultar(String idUsuario) {
@@ -66,7 +74,8 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 			diseno.setTotalEstimado(disenoDTO.getTotalEstimado());
 			diseno.setPrecioSugeridoVenta(disenoDTO.getPrecioSugeridoVenta());
 			diseno.setActivo(true);
-			manejadorDiseno.save(diseno);
+			diseno = manejadorDiseno.save(diseno);
+			disenoDTO.setIdDiseno(diseno.getIdDiseno());
 			return disenoDTO;
 			}
 			catch(Exception e){
@@ -74,5 +83,44 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 				return null;
 			}
 		}
+
+	@Override
+	public NuevoDisenoRespuesta nuevoDiseno(NuevoDisenoDTO nuevoDisenoDTO) {
+		DisenoDTO diseno = new DisenoDTO();
+		diseno.setNombre(nuevoDisenoDTO.getNombre());
+		diseno.setIdUsuario(nuevoDisenoDTO.getIdUsuario());
+		DisenoDTO disenor = new DisenoDTO();
+		disenor = this.crear(diseno);
+		NuevoDisenoRespuesta respuesta = new NuevoDisenoRespuesta();
+		respuesta.setIdDiseno(disenor.getIdDiseno());
+		respuesta.setNombre(disenor.getNombre());
+		List<Molde> moldesTemp = manejadorMolde.moldesFiltro(nuevoDisenoDTO.getTipoPrenda(),
+				nuevoDisenoDTO.getTipoModa(), nuevoDisenoDTO.getObjetivo(), nuevoDisenoDTO.getTipoAcabado());
+		List<MoldeDTO> moldes = new ArrayList<MoldeDTO>();
+		for (Molde moldeTemp : moldesTemp) {
+			MoldeDTO molde = new MoldeDTO();
+			molde.setIdMolde(moldeTemp.getIdMolde());
+			molde.setNombre(moldeTemp.getNombre());
+			molde.setFechaCreacion(moldeTemp.getFechaCreacion());
+			molde.setPrecio(moldeTemp.getPrecio());
+			molde.setTipoMolde(moldeTemp.getTipoMolde());
+			molde.setTipoPrenda(moldeTemp.getTipoPrenda());
+			molde.setTipoModa(moldeTemp.getTipoModa());
+			molde.setObjetivo(moldeTemp.getObjetivo());
+			molde.setTipoAcabado(moldeTemp.getTipoAcabado());
+			molde.setAnchoTela(moldeTemp.getAnchoTela());
+			molde.setConsumoTotal(moldeTemp.getConsumoTotal());
+			molde.setTipoProduccion(moldeTemp.getTipoProduccion());
+			molde.setTipoCascada(moldeTemp.getTipoCascada());
+			molde.setCaracteristicas(moldeTemp.getCaracteristicas());
+			molde.setRutaArchivo(moldeTemp.getRutaArchivo());
+			molde.setActivo(moldeTemp.getActivo());
+			moldes.add(molde);
+			
+		}
+		respuesta.setMoldes(moldes);
+		
+		return respuesta;
+	}
 
 }

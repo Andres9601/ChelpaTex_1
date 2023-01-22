@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bus.chelpaTex.DTO.DisenoDTO;
+import com.bus.chelpaTex.DTO.NuevoDisenoDTO;
 import com.bus.chelpaTex.Service.ServicioDiseno;
 
 @RestController
@@ -36,9 +37,18 @@ public class ControladorDiseno {
 	}
 	
 	@PostMapping(path = "/crear", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> createUserFirebase(@RequestBody DisenoDTO disenoDTO )throws Exception {
+	public ResponseEntity<?> crear(@RequestBody DisenoDTO disenoDTO )throws Exception {
     	try {
     		return ResponseEntity.ok(servicioDiseno.crear(disenoDTO));
+    	}catch(Exception e){
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede guardar el diseno ");
+    	}
+	}
+	
+	@PostMapping(path = "/nuevoDiseno", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> nuevoDiseno (@RequestBody NuevoDisenoDTO nuevoDisenoDTO )throws Exception {
+    	try {
+    		return ResponseEntity.ok(servicioDiseno.nuevoDiseno(nuevoDisenoDTO));
     	}catch(Exception e){
     		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede guardar el diseno ");
     	}

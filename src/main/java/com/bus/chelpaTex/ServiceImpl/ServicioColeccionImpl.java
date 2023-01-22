@@ -115,15 +115,15 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 
 
 	@Override
-	public ColeccionCompletaDTO consultarColeccionCompleta(ColeccionDTO coleccionDTO) {
-		Coleccion coleccion = manejadorColeccion.getReferenceById(coleccionDTO.getIdColeccion());
+	public ColeccionCompletaDTO consultarColeccionCompleta(Long idColeccion) {
+		Coleccion coleccion = manejadorColeccion.getReferenceById(idColeccion);
 		ColeccionCompletaDTO coleccionCompleta = new ColeccionCompletaDTO();
 		coleccionCompleta.setNombre(coleccion.getNombre());
 		ColeccionDisenoPK coleccionDisenoPK = new ColeccionDisenoPK();
-		coleccionDisenoPK.setIdColeccion(coleccionDTO.getIdColeccion());
+		coleccionDisenoPK.setIdColeccion(idColeccion);
 		Long CostoColeccion = 0L;
 		List<DisenosColeccionDTO> disenosColeccion = new ArrayList<DisenosColeccionDTO>();
-		List<DisenoDTO> disenos = manejadorColeccionDiseno.disenosColeccion(coleccionDTO.getIdColeccion());
+		List<DisenoDTO> disenos = manejadorColeccionDiseno.disenosColeccion(idColeccion);
 		for (DisenoDTO disenoDTO : disenos) {
 			DisenosColeccionDTO disenosColeccionTemp = new DisenosColeccionDTO();
 			CostoColeccion += disenoDTO.getTotalEstimado();

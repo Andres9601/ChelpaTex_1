@@ -20,7 +20,7 @@ public interface ServicioColeccion {
 	public List<MisColeccionesDTO> consultarColeccionesUsuario (String idUsuario);
 	
 	@Qualifier("ServicioColeccionImpl")
-	public ColeccionCompletaDTO consultarColeccionCompleta (ColeccionDTO coleccionDTO);
+	public ColeccionCompletaDTO consultarColeccionCompleta (Long idColeccion);
 	
 	@Qualifier("ServicioColeccionImpl")
 	public ColeccionDTO crear (ColeccionDTO coleccionDTO);

@@ -78,10 +78,10 @@ public class ControladorColeccion {
 	}
 	
 	@GetMapping(path= "/consultarColeccionCompleta", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> consultarColeccionCompleta(@RequestBody ColeccionDTO coleccionDTO) throws URISyntaxException{
+	public ResponseEntity<?> consultarColeccionCompleta(@RequestParam Long idColeccion) throws URISyntaxException{
 		
 		try { 
-			return ResponseEntity.ok(servicioColeccion.consultarColeccionCompleta(coleccionDTO));
+			return ResponseEntity.ok(servicioColeccion.consultarColeccionCompleta(idColeccion));
 			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);

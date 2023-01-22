@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +18,14 @@ import com.bus.chelpaTex.Entity.ColeccionDisenoPK;
 import com.bus.chelpaTex.Entity.Molde;
 import com.bus.chelpaTex.Repo.ManejadorColeccion;
 import com.bus.chelpaTex.Repo.ManejadorColeccionDiseno;
+import com.bus.chelpaTex.Repo.ManejadorDiseno;
 import com.bus.chelpaTex.Repo.ManejadorMolde;
 import com.bus.chelpaTex.Service.ServicioColeccion;
 
 @Service
 public class ServicioColeccionImpl implements ServicioColeccion {
 	
-	private static final Logger logger =  Logger.getLogger(ServicioColeccion.class.getName());
+	//private static final Logger logger =  Logger.getLogger(ServicioColeccion.class.getName());
 
 
 
@@ -37,6 +37,9 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 	
 	@Autowired
 	ManejadorMolde manejadorMolde;
+	
+	@Autowired
+	ManejadorDiseno manejadorDiseno;
 	
 	@Override
 	public List<ColeccionDTO> consultar(String idUsuario) {
@@ -71,14 +74,18 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 	public String eliminar(Long idColeccion) {
 	
 		Optional<Coleccion> coleccionesTemp = manejadorColeccion.findById(idColeccion);
-	try {
+
+		 List<DisenoDTO> disenos = manejadorColeccionDiseno.disenosColeccion(idColeccion);
+		 for(DisenoDTO diseno : disenos) {
+			 ColeccionDisenoPK coleccionDisenoPK = new ColeccionDisenoPK();
+			 coleccionDisenoPK.setIdColeccion(idColeccion);
+			 coleccionDisenoPK.setIdDiseno(diseno.getIdDiseno());
+			 manejadorColeccionDiseno.deleteById(coleccionDisenoPK);
+			 manejadorDiseno.deleteById(diseno.getIdDiseno());
+		 }
 		 manejadorColeccion.deleteById(coleccionesTemp.get().getIdColeccion());
 		 return "Coleccion eliminada correctamente";
-	}
-	catch(Exception e){
-		logger.info(e.getMessage() + e.getCause());
-		return "No se elimino correctamente la Coleccion";
-	}
+
 	
 }
 

@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.bus.chelpaTex.DTO.ActualizarDisenoDTO;
 import com.bus.chelpaTex.DTO.CifDTO;
+import com.bus.chelpaTex.DTO.ColeccionDTO;
 import com.bus.chelpaTex.DTO.ColeccionDisenoDTO;
 import com.bus.chelpaTex.DTO.DisenoDTO;
 import com.bus.chelpaTex.DTO.EmpleadoDTO;
 import com.bus.chelpaTex.DTO.ItemDTO;
+import com.bus.chelpaTex.DTO.MaquilaDTO;
 import com.bus.chelpaTex.DTO.MoldeDTO;
 import com.bus.chelpaTex.DTO.MoldeItemDTO;
 import com.bus.chelpaTex.DTO.NuevoDisenoDTO;
@@ -32,6 +34,7 @@ import com.bus.chelpaTex.Entity.Empleado;
 import com.bus.chelpaTex.Entity.Maquila;
 import com.bus.chelpaTex.Entity.Molde;
 import com.bus.chelpaTex.Repo.ManejadorCif;
+import com.bus.chelpaTex.Repo.ManejadorColeccionDiseno;
 import com.bus.chelpaTex.Repo.ManejadorDiseno;
 import com.bus.chelpaTex.Repo.ManejadorDisenoCif;
 import com.bus.chelpaTex.Repo.ManejadorDisenoEmpleado;
@@ -78,6 +81,9 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 	
 	@Autowired
 	ManejadorDisenoCif manejadorDisenoCif;
+	
+	@Autowired 
+	ManejadorColeccionDiseno manejadorColeccionDiseno;
 	
 	
 	@Override
@@ -319,8 +325,42 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 
 	@Override
 	public String eliminar(Long idDiseno) {
-		// TODO Auto-generated method stub
-		return null;
+		Diseno  diseno = manejadorDiseno.getReferenceById(idDiseno);
+		
+		List<EmpleadoDTO> empleados = manejadorDisenoEmpleado.empleadosDiseno(idDiseno);
+		for(EmpleadoDTO empleado: empleados) {
+			DisenoEmpleadoPK disenoEmpleadoPK = new DisenoEmpleadoPK();
+			disenoEmpleadoPK.setIdDiseno(idDiseno);
+			disenoEmpleadoPK.setNumeroIdentificacion(empleado.getNumeroIdentificacion());
+			manejadorDisenoEmpleado.deleteById(disenoEmpleadoPK);
+			manejadorEmpleado.deleteById(empleado.getNumeroIdentificacion());
+		}
+		
+		List<MaquilaDTO> maquilas = manejadorDisenoMaquila.maquilasDiseno(idDiseno);
+		for(MaquilaDTO maquila: maquilas) {
+			DisenoMaquilaPK disenoMaquilaPK = new DisenoMaquilaPK();
+			disenoMaquilaPK.setIdDiseno(idDiseno);
+			disenoMaquilaPK.setIdMaquila(maquila.getIdMaquila());
+			manejadorDisenoMaquila.deleteById(disenoMaquilaPK);
+		}
+		
+		List<CifDTO> cifs = manejadorDisenoCif.cifsDiseno(idDiseno);
+		for(CifDTO cif : cifs) {
+			DisenoCifPK disenoCifPK = new DisenoCifPK();
+			disenoCifPK.setIdDiseno(idDiseno);
+			disenoCifPK.setIdCif(cif.getIdCif());
+			manejadorDisenoCif.deleteById(disenoCifPK);
+			manejadorCif.deleteById(cif.getIdCif());
+		}
+		List<ColeccionDTO> colecciones = manejadorColeccionDiseno.coleccionesDiseno(idDiseno);
+		for(ColeccionDTO coleccion: colecciones) {
+			ColeccionDisenoPK coleccionDisenoPK = new ColeccionDisenoPK();
+			coleccionDisenoPK.setIdDiseno(idDiseno);
+			coleccionDisenoPK.setIdColeccion(coleccion.getIdColeccion());
+			manejadorColeccionDiseno.deleteById(coleccionDisenoPK);
+		}
+		manejadorDiseno.deleteById(diseno.getIdDiseno());
+		return "Diseno eliminado correctamente";
 	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.bus.chelpaTex.DTO.ColeccionDTO;
 import com.bus.chelpaTex.DTO.DisenoDTO;
 import com.bus.chelpaTex.Entity.ColeccionDiseno;
 import com.bus.chelpaTex.Entity.ColeccionDisenoPK;
@@ -24,5 +25,14 @@ public interface ManejadorColeccionDiseno extends JpaRepository<ColeccionDiseno,
 			+ "WHERE cd.coleccionDisenoPK.idColeccion = :idColeccion" )
 	public List<DisenoDTO> disenosColeccion (@Param ("idColeccion") Long idColeccion);
 			
+	@Query("Select NEW com.bus.chelpaTex.DTO.ColeccionDTO( "
+			+  "d.idColeccion, "
+			+  "d.idUsuario, "
+			+  "d.nombre, "
+			+  "d.fechaCreacion, "
+			+  "d.activo ) "
+			+ "FROM Coleccion d JOIN ColeccionDiseno cd ON d.idColeccion = cd.coleccionDisenoPK.idColeccion "
+			+ "WHERE cd.coleccionDisenoPK.idDiseno = :idDiseno" )
+	public List<ColeccionDTO> coleccionesDiseno (@Param ("idDiseno") Long idDiseno);
 
 }

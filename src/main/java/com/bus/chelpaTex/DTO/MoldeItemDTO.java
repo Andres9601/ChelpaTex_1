@@ -24,5 +24,11 @@ public class MoldeItemDTO implements Serializable{
 	private Long  cantidad;
 	
 	private Boolean activo;
+
+	public MoldeItemDTO(Long cantidad) {
+		super();
+		this.cantidad = cantidad;
+	}
+
 	
 }

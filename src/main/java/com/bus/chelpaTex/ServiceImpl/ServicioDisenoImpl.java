@@ -8,16 +8,37 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bus.chelpaTex.DTO.ActualizarDisenoDTO;
+import com.bus.chelpaTex.DTO.CifDTO;
 import com.bus.chelpaTex.DTO.ColeccionDisenoDTO;
 import com.bus.chelpaTex.DTO.DisenoDTO;
+import com.bus.chelpaTex.DTO.EmpleadoDTO;
+import com.bus.chelpaTex.DTO.ItemDTO;
 import com.bus.chelpaTex.DTO.MoldeDTO;
+import com.bus.chelpaTex.DTO.MoldeItemDTO;
 import com.bus.chelpaTex.DTO.NuevoDisenoDTO;
 import com.bus.chelpaTex.DTO.NuevoDisenoRespuesta;
+import com.bus.chelpaTex.Entity.Cif;
 import com.bus.chelpaTex.Entity.ColeccionDisenoPK;
 import com.bus.chelpaTex.Entity.Diseno;
+import com.bus.chelpaTex.Entity.DisenoCif;
+import com.bus.chelpaTex.Entity.DisenoCifPK;
+import com.bus.chelpaTex.Entity.DisenoEmpleado;
+import com.bus.chelpaTex.Entity.DisenoEmpleadoPK;
+import com.bus.chelpaTex.Entity.DisenoMaquila;
+import com.bus.chelpaTex.Entity.DisenoMaquilaPK;
+import com.bus.chelpaTex.Entity.Empleado;
+import com.bus.chelpaTex.Entity.Maquila;
 import com.bus.chelpaTex.Entity.Molde;
+import com.bus.chelpaTex.Repo.ManejadorCif;
 import com.bus.chelpaTex.Repo.ManejadorDiseno;
+import com.bus.chelpaTex.Repo.ManejadorDisenoCif;
+import com.bus.chelpaTex.Repo.ManejadorDisenoEmpleado;
+import com.bus.chelpaTex.Repo.ManejadorDisenoMaquila;
+import com.bus.chelpaTex.Repo.ManejadorEmpleado;
+import com.bus.chelpaTex.Repo.ManejadorMaquila;
 import com.bus.chelpaTex.Repo.ManejadorMolde;
+import com.bus.chelpaTex.Repo.ManejadorMoldeItem;
 import com.bus.chelpaTex.Service.ServicioColeccionDiseno;
 import com.bus.chelpaTex.Service.ServicioDiseno;
 
@@ -35,6 +56,28 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 	
 	@Autowired
 	ServicioColeccionDiseno servicioColeccionDiseno;
+	
+	@Autowired
+	ManejadorMoldeItem manejadorMoldeItem;
+	
+	@Autowired
+	ManejadorEmpleado manejadorEmpleado;
+	
+	@Autowired
+	ManejadorDisenoEmpleado manejadorDisenoEmpleado;
+	
+	@Autowired
+	ManejadorMaquila manejadorMaquila;
+	
+	@Autowired
+	ManejadorDisenoMaquila manejadorDisenoMaquila;
+	
+	@Autowired
+	ManejadorCif manejadorCif;
+	
+	@Autowired
+	ManejadorDisenoCif manejadorDisenoCif;
+	
 	
 	@Override
 	public List<DisenoDTO> consultar(String idUsuario) {
@@ -135,6 +178,142 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		servicioColeccionDiseno.crear(coleccionDisenoDTO);
 		
 		return respuesta;
+	}
+
+	
+	
+	@Override
+	public DisenoDTO actualizarDiseno (ActualizarDisenoDTO actualizarDisenoDTO) {
+		DisenoDTO disenoDTO = new DisenoDTO();
+		disenoDTO.setIdDiseno(actualizarDisenoDTO.getIdDiseno());
+		disenoDTO.setIdUsuario(actualizarDisenoDTO.getIdUsuario());
+		disenoDTO.setNombre(actualizarDisenoDTO.getNombre());
+		disenoDTO.setIdMolde(actualizarDisenoDTO.getIdMolde());
+		disenoDTO.setIdTrazabilidad("d-" + actualizarDisenoDTO.getIdDiseno());
+		disenoDTO.setUnidades(actualizarDisenoDTO.getUnidades());
+		
+		
+		Molde molde = manejadorMolde.getReferenceById(actualizarDisenoDTO.getIdMolde());
+		List<ItemDTO> items = manejadorMoldeItem.ItemsMolde(actualizarDisenoDTO.getIdMolde());
+		Long valorItems = 0L;
+		for(ItemDTO item:items)
+		{
+			MoldeItemDTO moldeItem = manejadorMoldeItem.cantidadItemMolde(item.getIdItem(), actualizarDisenoDTO.getIdMolde());
+			Long cantidad = moldeItem.getCantidad();
+			valorItems+= (item.getPrecioUnidad() * cantidad);
+		}
+		Long valorTotalUnidades = molde.getPrecio() + (valorItems * actualizarDisenoDTO.getUnidades());
+		disenoDTO.setValorTotalUnidades(valorTotalUnidades);
+		
+		List<EmpleadoDTO> empleados = actualizarDisenoDTO.getEmpleados();
+		Long valorEmpleados = 0L;
+		for(EmpleadoDTO empleado: empleados) {
+			Long salario = empleado.getSalario();
+			Long productividad = empleado.getProductividad();
+			valorEmpleados += salario/productividad;
+			
+			Empleado empleadoTemp = new  Empleado();
+			empleadoTemp.setNumeroIdentificacion(empleado.getNumeroIdentificacion());
+			empleadoTemp.setNombre(empleado.getNombre());
+			empleadoTemp.setSalario(salario);
+			empleadoTemp.setCargo(empleado.getCargo());
+			empleadoTemp.setProductividad(productividad);
+			empleadoTemp.setActivo(true);
+			manejadorEmpleado.save(empleadoTemp);
+			
+			DisenoEmpleado disenoEmpleado = new DisenoEmpleado();
+			DisenoEmpleadoPK disenoEmpleadoPK = new DisenoEmpleadoPK();
+			disenoEmpleadoPK.setIdDiseno(actualizarDisenoDTO.getIdDiseno());
+			disenoEmpleadoPK.setNumeroIdentificacion(empleado.getNumeroIdentificacion());
+			disenoEmpleado.setDisenoEmpleadoPK(disenoEmpleadoPK);
+			disenoEmpleado.setActivo(true);
+			manejadorDisenoEmpleado.save(disenoEmpleado);
+			}
+		Long valorTolalEmpleados = valorEmpleados * actualizarDisenoDTO.getUnidades();
+		disenoDTO.setValorTotalEmpleados(valorTolalEmpleados);
+		
+		
+		List<Long> idMaquilas = actualizarDisenoDTO.getIdsMaquilas();
+		Long valorMaquilas = 0L;
+		for(Long idMaquila : idMaquilas) {
+			Maquila maquila = manejadorMaquila.getReferenceById(idMaquila);
+			Long precioUnidad = maquila.getPrecioUnidad();
+			valorMaquilas += precioUnidad;
+			
+			DisenoMaquila disenoMaquila = new DisenoMaquila();
+			DisenoMaquilaPK disenoMaquilaPK = new DisenoMaquilaPK();
+			disenoMaquilaPK.setIdDiseno(actualizarDisenoDTO.getIdDiseno());
+			disenoMaquilaPK.setIdMaquila(idMaquila);
+			disenoMaquila.setDisenoMaquilaPK(disenoMaquilaPK);
+			disenoMaquila.setActivo(true);
+			manejadorDisenoMaquila.save(disenoMaquila);
+		}
+		
+		Long valorTotalMaquilas = valorMaquilas * actualizarDisenoDTO.getUnidades();
+		disenoDTO.setValorTotalMaquila(valorTotalMaquilas);
+		
+		List<CifDTO> cifs = actualizarDisenoDTO.getCifs();
+		Long valorCifs = 0L;
+		for(CifDTO cif : cifs) {
+			Long valor = cif.getValor();
+			Long productividadPeriodo =cif.getProductividadPeriodo();
+			valorCifs += valor/productividadPeriodo;
+			
+			Cif cifTemp = new Cif();
+			cifTemp.setIdCif(cif.getIdCif());
+			cifTemp.setTipoCif(cif.getTipoCif());
+			cifTemp.setValor(valor);
+			cifTemp.setPeriodo(cif.getPeriodo());
+			cifTemp.setProductividadPeriodo(productividadPeriodo);
+			cifTemp.setActivo(true);
+			cifTemp = manejadorCif.save(cifTemp);
+			
+			DisenoCif disenoCif= new DisenoCif();
+			DisenoCifPK disenoCifPK = new DisenoCifPK();
+			disenoCifPK.setIdDiseno(actualizarDisenoDTO.getIdDiseno());
+			disenoCifPK.setIdCif(cifTemp.getIdCif());
+			disenoCif.setDisenoCifPK(disenoCifPK);
+			disenoCif.setActivo(true);
+			manejadorDisenoCif.save(disenoCif);
+		}
+		Long valorTotalCifs = valorCifs * actualizarDisenoDTO.getUnidades();
+		disenoDTO.setValorTotalCif(valorTotalCifs);
+		
+		Long totalEstimado = valorTotalUnidades + valorTolalEmpleados + valorTotalMaquilas + valorTotalCifs;
+		disenoDTO.setTotalEstimado(totalEstimado);
+		disenoDTO.setActivo(actualizarDisenoDTO.getActivo());
+		
+		Diseno diseno = manejadorDiseno.getReferenceById(actualizarDisenoDTO.getIdDiseno());
+		disenoDTO.setFechaCreacion(diseno.getFechaCreacion());
+		
+		diseno.setNombre(disenoDTO.getNombre());
+		diseno.setIdMolde(disenoDTO.getIdMolde());
+		diseno.setIdTrazabilidad(disenoDTO.getIdTrazabilidad());
+		diseno.setUnidades(disenoDTO.getUnidades());
+		diseno.setValorTotalUnidades(disenoDTO.getValorTotalUnidades());
+		diseno.setValorTotalEmpleados(disenoDTO.getValorTotalUnidades());
+		diseno.setValorTotalMaquila(disenoDTO.getValorTotalMaquila());
+		diseno.setValorTotalCif(disenoDTO.getValorTotalCif());
+		diseno.setTotalEstimado(disenoDTO.getTotalEstimado());
+		diseno.setActivo(disenoDTO.getActivo());
+
+		manejadorDiseno.save(diseno);
+		return disenoDTO;
+	}
+
+	@Override
+	public DisenoDTO actualizarDisenoMg(DisenoDTO disenoDTO) {
+		Diseno diseno = manejadorDiseno.getReferenceById(disenoDTO.getIdDiseno());
+		Long margenGanancia = disenoDTO.getMargenGanancia();
+		Long totalEstimado = diseno.getTotalEstimado();
+		Long unidades = diseno.getUnidades();
+		Long precioSugeridoVenta = (totalEstimado/unidades) * (1 + (margenGanancia/100));
+		disenoDTO.setPrecioSugeridoVenta(precioSugeridoVenta);
+		
+		diseno.setMargenGanancia(margenGanancia);
+		diseno.setPrecioSugeridoVenta(precioSugeridoVenta);
+		manejadorDiseno.save(diseno);
+		return disenoDTO;
 	}
 
 }

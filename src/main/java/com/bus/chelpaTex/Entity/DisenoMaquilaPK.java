@@ -1,6 +1,5 @@
 package com.bus.chelpaTex.Entity;
 
-
 import java.io.Serializable;
 
 import javax.persistence.Basic;
@@ -17,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class DisenoEmpleadoPK implements Serializable{
+public class DisenoMaquilaPK implements  Serializable{
 
 	/**
 	 * 
@@ -25,9 +24,9 @@ public class DisenoEmpleadoPK implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	 	@Basic(optional = false)
-	    @Column(name = "numero_identificacion")
+	    @Column(name = "id_maquila")
 
-	    private Long numeroIdentificacion;
+	    private Long idMaquila;
 
 	    @Basic(optional = false)
 	    @Column(name = "id_diseno")

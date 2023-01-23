@@ -16,5 +16,5 @@ public interface ServicioMolde {
 	
 	@Qualifier("ServicioMoldeImpl")
 	public MoldeDTO crear (MoldeDTO moldeDTO);
-
+	
 }

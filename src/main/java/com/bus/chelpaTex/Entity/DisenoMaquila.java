@@ -1,39 +1,32 @@
 package com.bus.chelpaTex.Entity;
 
-
 import java.io.Serializable;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-@Embeddable
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class DisenoCifPK implements Serializable{
+@Entity
+@Table(name = "DISENO_MAQUILA")
+public class DisenoMaquila implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
-	 	@Basic(optional = false)
-	    @Column(name = "id_cif")
-
-	    private Long idCif;
-
-	    @Basic(optional = false)
-	    @Column(name = "id_diseno")
-
-	    private Long idDiseno;
+	
+	@EmbeddedId
+	private DisenoMaquilaPK disenoMaquilaPK;
 	
 	
-
+	@Column(name = "activo")
+	private Boolean activo;
 }

@@ -33,6 +33,12 @@ import lombok.AllArgsConstructor;
 		
 		@Column(name = "id_trazabilidad")
 		private String idTrazabilidad;
+		
+		@Column(name = "precio_unidad")
+		private Long precioUnidad;
+		
+		@Column(name = "cantidad_minima")
+		private Long cantidadMinima;
 				
 		@Column(name = "activo")
 		private Boolean activo;

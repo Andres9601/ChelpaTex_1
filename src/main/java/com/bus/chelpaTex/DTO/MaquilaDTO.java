@@ -2,7 +2,6 @@ package com.bus.chelpaTex.DTO;
 
 import java.io.Serializable;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,22 +11,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class ItemDTO implements Serializable{
+public class MaquilaDTO implements Serializable{
 /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Long idItem;
+	private Long idMaquila;
 	
-	private String tipoItem;
-	
-	private String idTrazabilidad;
+	private String tipoMaquila;
 	
 	private Long precioUnidad;
-	
-	private Long cantidadMinima;
-			
+				
 	private Boolean activo;
-
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.bus.chelpaTex.DTO.ActualizarDisenoDTO;
 import com.bus.chelpaTex.DTO.DisenoDTO;
 import com.bus.chelpaTex.DTO.NuevoDisenoDTO;
 import com.bus.chelpaTex.DTO.NuevoDisenoRespuesta;
@@ -22,5 +23,10 @@ public interface ServicioDiseno {
 	@Qualifier("ServicioDisenoImpl")
 	public NuevoDisenoRespuesta nuevoDiseno (NuevoDisenoDTO nuevoDisenoDTO);
 
+	@Qualifier("ServicioDisenoImpl")
+	public DisenoDTO actualizarDiseno (ActualizarDisenoDTO actualizarDisenoDTO);
+	
+	@Qualifier("ServicioDisenoImpl")
+	public DisenoDTO actualizarDisenoMg (DisenoDTO disenoDTO);
 	
 }

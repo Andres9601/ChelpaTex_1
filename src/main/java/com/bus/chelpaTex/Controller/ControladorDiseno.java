@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -74,5 +75,13 @@ public class ControladorDiseno {
     	}
 	}
 
+	@DeleteMapping(path = "/eliminar")
+	public ResponseEntity<?> eliminar(@RequestParam(value="idDiseno") Long idDiseno) {
+    	try {
+    		return ResponseEntity.ok(servicioDiseno.eliminar(idDiseno));
+    	}catch(Exception e){
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede eliminar el diseno ");
+    	}
+	}
 
 }

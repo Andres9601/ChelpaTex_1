@@ -29,4 +29,7 @@ public interface ServicioDiseno {
 	@Qualifier("ServicioDisenoImpl")
 	public DisenoDTO actualizarDisenoMg (DisenoDTO disenoDTO);
 	
+	@Qualifier("ServicioDisenoImpl")
+	public String eliminar (Long idDiseno);
+	
 }

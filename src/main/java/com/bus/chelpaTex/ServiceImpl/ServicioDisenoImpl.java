@@ -317,4 +317,10 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		return disenoDTO;
 	}
 
+	@Override
+	public String eliminar(Long idDiseno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

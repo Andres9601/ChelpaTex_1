@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.DTO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,11 +22,11 @@ public class EmpleadoDTO implements Serializable{
 	
 	private String nombre;
 	
-	private Long salario;
+	private BigDecimal salario;
 	
 	private String cargo;
 	
-	private Long productividad;
+	private BigDecimal productividad;
 	
 	private Boolean activo;
 	

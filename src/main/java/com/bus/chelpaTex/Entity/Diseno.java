@@ -1,4 +1,5 @@
 package com.bus.chelpaTex.Entity;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -44,28 +45,28 @@ public class Diseno {
 	private String idTrazabilidad;
 	
 	@Column(name = "unidades")
-	private Long unidades;
+	private BigDecimal unidades;
 	
 	@Column(name = "valor_total_unidades")
-	private Long valorTotalUnidades;
+	private BigDecimal valorTotalUnidades;
 	
 	@Column(name = "valor_total_empleados")
-	private Long valorTotalEmpleados;
+	private BigDecimal valorTotalEmpleados;
 	
 	@Column(name = "valor_total_maquila")
-	private Long valorTotalMaquila;
+	private BigDecimal valorTotalMaquila;
 	
 	@Column(name = "valor_total_cif")
-	private Long valorTotalCif;
+	private BigDecimal valorTotalCif;
 	
 	@Column(name = "margen_ganancia")
-	private Long margenGanancia;
+	private BigDecimal margenGanancia;
 	
 	@Column(name = "total_estimado")
-	private Long totalEstimado;
+	private BigDecimal totalEstimado;
 	
 	@Column(name = "precio_sugerido_venta")
-	private Long precioSugeridoVenta;
+	private BigDecimal precioSugeridoVenta;
 	
 	@Column(name = "activo")
 	private Boolean activo;

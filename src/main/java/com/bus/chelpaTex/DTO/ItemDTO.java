@@ -1,7 +1,7 @@
 package com.bus.chelpaTex.DTO;
 
 import java.io.Serializable;
-
+import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,9 +24,9 @@ public class ItemDTO implements Serializable{
 	
 	private String idTrazabilidad;
 	
-	private Long precioUnidad;
+	private BigDecimal precioUnidad;
 	
-	private Long cantidadMinima;
+	private BigDecimal cantidadMinima;
 			
 	private Boolean activo;
 

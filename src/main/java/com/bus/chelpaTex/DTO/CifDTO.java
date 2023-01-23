@@ -1,7 +1,7 @@
 package com.bus.chelpaTex.DTO;
 
 import java.io.Serializable;
-
+import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,11 +24,11 @@ public class CifDTO implements Serializable{
 	
 	private String tipoCif;
 	
-	private Long valor;
+	private BigDecimal valor;
 	
 	private Long periodo;
 	
-	private Long productividadPeriodo;
+	private BigDecimal productividadPeriodo;
 		
 	private Boolean activo;
 

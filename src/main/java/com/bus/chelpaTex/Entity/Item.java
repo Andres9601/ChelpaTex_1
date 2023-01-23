@@ -1,7 +1,9 @@
 package com.bus.chelpaTex.Entity;
 
 
-	import javax.persistence.Column;
+	import java.math.BigDecimal;
+
+import javax.persistence.Column;
 	import javax.persistence.Entity;
 	import javax.persistence.GeneratedValue;
 	import javax.persistence.Id;
@@ -35,10 +37,10 @@ import lombok.AllArgsConstructor;
 		private String idTrazabilidad;
 		
 		@Column(name = "precio_unidad")
-		private Long precioUnidad;
+		private BigDecimal precioUnidad;
 		
 		@Column(name = "cantidad_minima")
-		private Long cantidadMinima;
+		private BigDecimal cantidadMinima;
 				
 		@Column(name = "activo")
 		private Boolean activo;

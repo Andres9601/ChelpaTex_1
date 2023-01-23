@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.DTO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class ActualizarDisenoDTO implements Serializable{/**
 		
 	private Long idMolde;
 		
-	private Long unidades;
+	private BigDecimal unidades;
 	
 	private List<EmpleadoDTO> empleados;
 		
@@ -33,7 +34,7 @@ public class ActualizarDisenoDTO implements Serializable{/**
 	
 	private List<CifDTO> cifs;
 	
-	private Long margenGanancia;
+	private BigDecimal margenGanancia;
 			
 	private Boolean activo;
 

@@ -1,5 +1,7 @@
 package com.bus.chelpaTex.Entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,13 +33,13 @@ public class Cif {
 	private String tipoCif;
 	
 	@Column(name = "valor")
-	private Long valor;
+	private BigDecimal valor;
 	
 	@Column(name = "periodo")
 	private Long periodo;
 	
 	@Column(name = "productividad_periodo")
-	private Long productividadPeriodo;
+	private BigDecimal productividadPeriodo;
 		
 	@Column(name = "activo")
 	private Boolean activo;

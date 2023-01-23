@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.DTO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -27,7 +28,7 @@ private Long idMolde;
 	
 	private Date fechaCreacion;
 	
-	private Long precio;
+	private BigDecimal precio;
 	
 	private String tipoMolde;
 	

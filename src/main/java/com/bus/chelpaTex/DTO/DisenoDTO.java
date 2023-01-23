@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.DTO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -31,25 +32,25 @@ public class DisenoDTO implements Serializable{
 	
 	private String idTrazabilidad;
 	
-	private Long unidades;
+	private BigDecimal unidades;
 	
-	private Long valorTotalUnidades;
+	private BigDecimal valorTotalUnidades;
 	
-	private Long valorTotalEmpleados;
+	private BigDecimal valorTotalEmpleados;
 	
-	private Long valorTotalMaquila;
+	private BigDecimal valorTotalMaquila;
 	
-	private Long valorTotalCif;
+	private BigDecimal valorTotalCif;
 	
-	private Long margenGanancia;
+	private BigDecimal margenGanancia;
 	
-	private Long totalEstimado;
+	private BigDecimal totalEstimado;
 	
-	private Long precioSugeridoVenta;
+	private BigDecimal precioSugeridoVenta;
 	
 	private Boolean activo;
 
-	public DisenoDTO(Long idDiseno, String nombre, Long idMolde, Long unidades, Long totalEstimado) {
+	public DisenoDTO(Long idDiseno, String nombre, Long idMolde, BigDecimal unidades, BigDecimal totalEstimado) {
 		super();
 		this.idDiseno = idDiseno;
 		this.nombre = nombre;

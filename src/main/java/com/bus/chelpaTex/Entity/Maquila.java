@@ -1,5 +1,7 @@
 package com.bus.chelpaTex.Entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +34,7 @@ public class Maquila {
 	private String tipoMaquila;
 			
 	@Column(name = "precioUnidad")
-	private Long precioUnidad;
+	private BigDecimal precioUnidad;
 	
 	@Column(name = "activo")
 	private Boolean activo;

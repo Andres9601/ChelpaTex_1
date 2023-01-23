@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.Entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -27,7 +28,7 @@ public class MoldeItem implements Serializable {
 	private MoldeItemPK moldeItemPK;
 	
 	@Column(name ="cantidad")
-	private Long cantidad;
+	private BigDecimal cantidad;
 	
 	@Column(name = "activo")
 	private Boolean activo;

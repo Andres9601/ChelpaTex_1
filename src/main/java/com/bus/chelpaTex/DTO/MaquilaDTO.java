@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.DTO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class MaquilaDTO implements Serializable{
 	
 	private String tipoMaquila;
 	
-	private Long precioUnidad;
+	private BigDecimal precioUnidad;
 				
 	private Boolean activo;
 }

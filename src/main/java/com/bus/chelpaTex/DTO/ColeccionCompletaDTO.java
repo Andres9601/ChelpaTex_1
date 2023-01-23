@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.DTO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class ColeccionCompletaDTO implements Serializable {
 	
 	private String nombre;
 	
-	private Long costoColeccion;
+	private BigDecimal costoColeccion;
 	
 	private List<DisenosColeccionDTO> disenos;
 	

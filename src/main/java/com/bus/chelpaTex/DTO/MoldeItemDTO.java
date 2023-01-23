@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.DTO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import com.bus.chelpaTex.Entity.MoldeItemPK;
 
@@ -21,11 +22,11 @@ public class MoldeItemDTO implements Serializable{
 	
 	private MoldeItemPK moldeItemPK;
 	
-	private Long  cantidad;
+	private BigDecimal  cantidad;
 	
 	private Boolean activo;
 
-	public MoldeItemDTO(Long cantidad) {
+	public MoldeItemDTO(BigDecimal cantidad) {
 		super();
 		this.cantidad = cantidad;
 	}

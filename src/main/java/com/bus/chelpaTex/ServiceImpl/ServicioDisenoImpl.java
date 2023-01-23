@@ -1,5 +1,6 @@
 package com.bus.chelpaTex.ServiceImpl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -138,7 +139,7 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		DisenoDTO diseno = new DisenoDTO();
 		diseno.setNombre(nuevoDisenoDTO.getNombre());
 		diseno.setIdUsuario(nuevoDisenoDTO.getIdUsuario());
-		diseno.setTotalEstimado(0L);
+		diseno.setTotalEstimado(BigDecimal.valueOf(0));
 		diseno.setIdMolde(1L);
 		DisenoDTO disenor = new DisenoDTO();
 		disenor = this.crear(diseno);
@@ -195,22 +196,22 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		
 		Molde molde = manejadorMolde.getReferenceById(actualizarDisenoDTO.getIdMolde());
 		List<ItemDTO> items = manejadorMoldeItem.ItemsMolde(actualizarDisenoDTO.getIdMolde());
-		Long valorItems = 0L;
+		BigDecimal valorItems = BigDecimal.valueOf(0);
 		for(ItemDTO item:items)
 		{
 			MoldeItemDTO moldeItem = manejadorMoldeItem.cantidadItemMolde(item.getIdItem(), actualizarDisenoDTO.getIdMolde());
-			Long cantidad = moldeItem.getCantidad();
-			valorItems+= (item.getPrecioUnidad() * cantidad);
+			BigDecimal cantidad = moldeItem.getCantidad();
+			valorItems= valorItems.add(item.getPrecioUnidad().multiply(cantidad));
 		}
-		Long valorTotalUnidades = molde.getPrecio() + (valorItems * actualizarDisenoDTO.getUnidades());
+		BigDecimal valorTotalUnidades = molde.getPrecio().add(valorItems.multiply(actualizarDisenoDTO.getUnidades()));
 		disenoDTO.setValorTotalUnidades(valorTotalUnidades);
 		
 		List<EmpleadoDTO> empleados = actualizarDisenoDTO.getEmpleados();
-		Long valorEmpleados = 0L;
+		BigDecimal valorEmpleados = BigDecimal.valueOf(0);
 		for(EmpleadoDTO empleado: empleados) {
-			Long salario = empleado.getSalario();
-			Long productividad = empleado.getProductividad();
-			valorEmpleados += salario/productividad;
+			BigDecimal salario = empleado.getSalario();
+			BigDecimal productividad = empleado.getProductividad();
+			valorEmpleados = valorEmpleados.add(salario.divide(productividad));
 			
 			Empleado empleadoTemp = new  Empleado();
 			empleadoTemp.setNumeroIdentificacion(empleado.getNumeroIdentificacion());
@@ -229,16 +230,16 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 			disenoEmpleado.setActivo(true);
 			manejadorDisenoEmpleado.save(disenoEmpleado);
 			}
-		Long valorTolalEmpleados = valorEmpleados * actualizarDisenoDTO.getUnidades();
+		BigDecimal valorTolalEmpleados = valorEmpleados.multiply(actualizarDisenoDTO.getUnidades());
 		disenoDTO.setValorTotalEmpleados(valorTolalEmpleados);
 		
 		
 		List<Long> idMaquilas = actualizarDisenoDTO.getIdsMaquilas();
-		Long valorMaquilas = 0L;
+		BigDecimal valorMaquilas = BigDecimal.valueOf(0);
 		for(Long idMaquila : idMaquilas) {
 			Maquila maquila = manejadorMaquila.getReferenceById(idMaquila);
-			Long precioUnidad = maquila.getPrecioUnidad();
-			valorMaquilas += precioUnidad;
+			BigDecimal precioUnidad = maquila.getPrecioUnidad();
+			valorMaquilas = valorMaquilas.add(precioUnidad);
 			
 			DisenoMaquila disenoMaquila = new DisenoMaquila();
 			DisenoMaquilaPK disenoMaquilaPK = new DisenoMaquilaPK();
@@ -249,15 +250,15 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 			manejadorDisenoMaquila.save(disenoMaquila);
 		}
 		
-		Long valorTotalMaquilas = valorMaquilas * actualizarDisenoDTO.getUnidades();
+		BigDecimal valorTotalMaquilas = valorMaquilas.multiply(actualizarDisenoDTO.getUnidades());
 		disenoDTO.setValorTotalMaquila(valorTotalMaquilas);
 		
 		List<CifDTO> cifs = actualizarDisenoDTO.getCifs();
-		Long valorCifs = 0L;
+		BigDecimal valorCifs = BigDecimal.valueOf(0);
 		for(CifDTO cif : cifs) {
-			Long valor = cif.getValor();
-			Long productividadPeriodo =cif.getProductividadPeriodo();
-			valorCifs += valor/productividadPeriodo;
+			BigDecimal valor = cif.getValor();
+			BigDecimal productividadPeriodo =cif.getProductividadPeriodo();
+			valorCifs = valorCifs.add(valor.divide(productividadPeriodo));
 			
 			Cif cifTemp = new Cif();
 			cifTemp.setIdCif(cif.getIdCif());
@@ -276,10 +277,10 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 			disenoCif.setActivo(true);
 			manejadorDisenoCif.save(disenoCif);
 		}
-		Long valorTotalCifs = valorCifs * actualizarDisenoDTO.getUnidades();
+		BigDecimal valorTotalCifs = valorCifs.multiply(actualizarDisenoDTO.getUnidades());
 		disenoDTO.setValorTotalCif(valorTotalCifs);
 		
-		Long totalEstimado = valorTotalUnidades + valorTolalEmpleados + valorTotalMaquilas + valorTotalCifs;
+		BigDecimal totalEstimado = valorTotalUnidades.add(valorTolalEmpleados).add(valorTotalMaquilas).add(valorTotalCifs);
 		disenoDTO.setTotalEstimado(totalEstimado);
 		disenoDTO.setActivo(actualizarDisenoDTO.getActivo());
 		
@@ -304,10 +305,10 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 	@Override
 	public DisenoDTO actualizarDisenoMg(DisenoDTO disenoDTO) {
 		Diseno diseno = manejadorDiseno.getReferenceById(disenoDTO.getIdDiseno());
-		Long margenGanancia = disenoDTO.getMargenGanancia();
-		Long totalEstimado = diseno.getTotalEstimado();
-		Long unidades = diseno.getUnidades();
-		Long precioSugeridoVenta = (totalEstimado/unidades) * (1 + (margenGanancia/100));
+		BigDecimal margenGanancia = disenoDTO.getMargenGanancia();
+		BigDecimal totalEstimado = diseno.getTotalEstimado();
+		BigDecimal unidades = diseno.getUnidades();
+		BigDecimal precioSugeridoVenta = (totalEstimado.divide(unidades)).multiply((BigDecimal.valueOf(1).add(margenGanancia.divide(BigDecimal.valueOf(100)))));
 		disenoDTO.setPrecioSugeridoVenta(precioSugeridoVenta);
 		
 		diseno.setMargenGanancia(margenGanancia);

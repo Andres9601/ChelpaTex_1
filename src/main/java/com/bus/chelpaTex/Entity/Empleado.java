@@ -1,5 +1,7 @@
 package com.bus.chelpaTex.Entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,13 +28,13 @@ public class Empleado {
 	private String nombre;
 	
 	@Column(name = "salario")
-	private Long salario;
+	private BigDecimal salario;
 	
 	@Column(name = "cargo")
 	private String cargo;
 	
 	@Column(name = "productividad")
-	private Long productividad;
+	private BigDecimal productividad;
 	
 	@Column(name = "activo")
 	private Boolean activo;

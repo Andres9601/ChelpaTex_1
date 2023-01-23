@@ -1,4 +1,5 @@
 package com.bus.chelpaTex.Entity;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -38,7 +39,7 @@ public class Molde {
 	private Date fechaCreacion;
 	
 	@Column(name = "precio")
-	private Long precio;
+	private BigDecimal precio;
 	
 	@Column(name = "tipo_molde")
 	private String tipoMolde;

@@ -1,5 +1,6 @@
 package com.bus.chelpaTex.ServiceImpl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -128,12 +129,12 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 		coleccionCompleta.setNombre(coleccion.getNombre());
 		ColeccionDisenoPK coleccionDisenoPK = new ColeccionDisenoPK();
 		coleccionDisenoPK.setIdColeccion(idColeccion);
-		Long CostoColeccion = 0L;
+		BigDecimal CostoColeccion = BigDecimal.valueOf(0);
 		List<DisenosColeccionDTO> disenosColeccion = new ArrayList<DisenosColeccionDTO>();
 		List<DisenoDTO> disenos = manejadorColeccionDiseno.disenosColeccion(idColeccion);
 		for (DisenoDTO disenoDTO : disenos) {
 			DisenosColeccionDTO disenosColeccionTemp = new DisenosColeccionDTO();
-			CostoColeccion += disenoDTO.getTotalEstimado();
+			CostoColeccion = CostoColeccion.add(disenoDTO.getTotalEstimado());
 			disenosColeccionTemp.setIdDiseno(disenoDTO.getIdDiseno());
 			disenosColeccionTemp.setNombre(disenoDTO.getNombre());
 			Molde molde = manejadorMolde.getReferenceById(disenoDTO.getIdMolde());

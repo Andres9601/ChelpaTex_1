@@ -146,6 +146,7 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 			
 		}
 		coleccionCompleta.setDisenos(disenosColeccion);
+		coleccionCompleta.setCostoColeccion(CostoColeccion);
 		return coleccionCompleta;
 	}
 }

@@ -19,4 +19,7 @@ public interface ServicioUsuario {
 	
 	@Qualifier("ServicioUsuarioImpl")
 	public RegistroDTO registrarUsuario (RegistroDTO registroDTO);
+	
+	@Qualifier("ServicioUsuarioImpl")
+	public RegistroDTO consultarDatosUsuario (String idUsuario);
 }

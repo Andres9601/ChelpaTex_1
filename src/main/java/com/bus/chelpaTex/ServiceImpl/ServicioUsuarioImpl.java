@@ -15,6 +15,7 @@ import com.bus.chelpaTex.DTO.UsuarioRolDTO;
 import com.bus.chelpaTex.Entity.Usuario;
 import com.bus.chelpaTex.Entity.UsuarioRolPK;
 import com.bus.chelpaTex.Repo.ManejadorUsuario;
+import com.bus.chelpaTex.Repo.ManejadorUsuarioRol;
 import com.bus.chelpaTex.Service.ServicioUsuario;
 import com.bus.chelpaTex.Service.ServicioUsuarioRol;
 
@@ -29,6 +30,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	@Autowired
 	ServicioUsuarioRol servicioUsuarioRol;
 	
+	@Autowired
+	ManejadorUsuarioRol manejadorUsuarioRol;
 
 	@Override
 	public List<UsuarioDTO> consultar() {
@@ -94,6 +97,22 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 			return null;
 		}
 		
+	}
+
+	@Override
+	public RegistroDTO consultarDatosUsuario(String idUsuario) {
+		RegistroDTO respuesta =new RegistroDTO();
+		Usuario usuarioTemp = manejadorUsuario.getReferenceById(idUsuario);
+		RolDTO rol = manejadorUsuarioRol.rolUsuario(idUsuario);
+		respuesta.setRolDTO(rol);
+		UsuarioDTO usuario = new UsuarioDTO();
+		usuario.setIdUsuario(idUsuario);
+		usuario.setEmail(usuarioTemp.getEmail());
+		usuario.setNombre(usuarioTemp.getNombre());
+		usuario.setTelefono(usuarioTemp.getTelefono());
+		usuario.setActivo(usuarioTemp.getActivo());
+		respuesta.setUsuarioDTO(usuario);
+		return respuesta;
 	}
 	
 	

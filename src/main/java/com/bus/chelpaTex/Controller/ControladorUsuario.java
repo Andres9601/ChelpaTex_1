@@ -60,4 +60,17 @@ public class ControladorUsuario {
     		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede registrar el usuario ");
     	}
 	}
+	
+	@GetMapping(path= "/consultarDatosUsuario", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> consultarDatosUsuario(@RequestParam("idUsuario") String idUsuario) throws URISyntaxException{
+		
+		try { 
+			return ResponseEntity.ok(servicioUsuario.consultarDatosUsuario(idUsuario));
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);
+		}
+		
+	}
+	
 }

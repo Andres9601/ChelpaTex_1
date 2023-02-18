@@ -1,5 +1,6 @@
 package com.bus.chelpaTex.ServiceImpl;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,13 @@ public class ServicioMoldeItemImpl implements ServicioMoldeItem{
 
 	@Override
 	public List<ItemDTO> consultarItemsMolde (Long idMolde) {
+		if(!idMolde.equals(null)) {
 		List<ItemDTO>  itemsDTO = manejadorMoldeItem.ItemsMolde(idMolde);
 		return itemsDTO;
+		}
+		else {
+			throw new InvalidParameterException("idMolde incorrecto");
+		}
 	}
 	
 

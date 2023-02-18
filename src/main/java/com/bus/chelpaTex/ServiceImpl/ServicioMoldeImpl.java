@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bus.chelpaTex.DTO.MoldeDTO;
-import com.bus.chelpaTex.DTO.NuevoDisenoDTO;
 import com.bus.chelpaTex.Entity.Molde;
 import com.bus.chelpaTex.Repo.ManejadorMolde;
 import com.bus.chelpaTex.Service.ServicioMolde;
@@ -74,9 +73,9 @@ public class ServicioMoldeImpl implements ServicioMolde {
 
 
 	@Override
-	public List<MoldeDTO> consultarMoldesParametros(NuevoDisenoDTO nuevoDisenoDTO) {
-		List<Molde> moldesTemp = manejadorMolde.moldesFiltro(nuevoDisenoDTO.getTipoPrenda(),
-				nuevoDisenoDTO.getTipoModa(), nuevoDisenoDTO.getObjetivo(), nuevoDisenoDTO.getTipoAcabado());
+	public List<MoldeDTO> consultarMoldesParametros(MoldeDTO molder) {
+		List<Molde> moldesTemp = manejadorMolde.moldesFiltro(molder.getTipoPrenda(),
+				molder.getTipoModa(), molder.getObjetivo(), molder.getTipoAcabado());
 		List<MoldeDTO> moldes = new ArrayList<MoldeDTO>();
 		for (Molde moldeTemp : moldesTemp) {
 			MoldeDTO molde = new MoldeDTO();
@@ -100,6 +99,22 @@ public class ServicioMoldeImpl implements ServicioMolde {
 			
 		}
 		return moldes;
+	}
+
+
+	@Override
+	public MoldeDTO crearDisenoConMolde(MoldeDTO moldeTemp) {
+		Molde molde = new Molde();
+		molde.setTipoMolde(moldeTemp.getTipoMolde());
+		molde.setTipoPrenda(moldeTemp.getTipoPrenda());
+		molde.setTipoModa(moldeTemp.getTipoModa());
+		molde.setObjetivo(moldeTemp.getObjetivo());
+		molde.setTipoAcabado(moldeTemp.getTipoAcabado());
+		molde.setNombre(moldeTemp.getNombre());
+		molde = manejadorMolde.save(molde);
+		moldeTemp.setIdMolde(molde.getIdMolde());
+		return moldeTemp;
+		
 	}
 	
 	

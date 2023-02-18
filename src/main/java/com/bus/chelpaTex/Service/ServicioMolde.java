@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.bus.chelpaTex.DTO.MoldeDTO;
-import com.bus.chelpaTex.DTO.NuevoDisenoDTO;
 
 
 @Service
@@ -20,6 +19,9 @@ public interface ServicioMolde {
 	public MoldeDTO crear (MoldeDTO moldeDTO) throws InvalidParameterException;
 
 	@Qualifier("ServicioMoldeImpl")
-	public List<MoldeDTO> consultarMoldesParametros(NuevoDisenoDTO nuevoDisenoDTO);
+	public List<MoldeDTO> consultarMoldesParametros(MoldeDTO molde);
+
+	@Qualifier("ServicioMoldeImpl")
+	public MoldeDTO crearDisenoConMolde(MoldeDTO molde);
 	
 }

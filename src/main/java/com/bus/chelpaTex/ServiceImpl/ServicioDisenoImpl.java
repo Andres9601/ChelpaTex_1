@@ -157,11 +157,22 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		NuevoDisenoRespuesta respuesta = new NuevoDisenoRespuesta();
 		respuesta.setIdDiseno(disenor.getIdDiseno());
 		respuesta.setNombre(disenor.getNombre());
+		MoldeDTO molde = nuevoDisenoDTO.getMolde();
 		
-		List<MoldeDTO> moldes = servicioMolde.consultarMoldesParametros(nuevoDisenoDTO);
+		if(!molde.getTipoMolde().equals("PROPIO")) {
+		List<MoldeDTO> moldes = servicioMolde.consultarMoldesParametros(molde);
 	
 		respuesta.setMoldes(moldes);
-		
+		}
+		else
+		{
+			List<MoldeDTO> moldes = new ArrayList<MoldeDTO>();
+			MoldeDTO moldeDTO = servicioMolde.crearDisenoConMolde(molde);
+			moldes.add(moldeDTO);
+			List<MoldeDTO> moldesItems = servicioMolde.consultarMoldesParametros(molde);
+			moldes.addAll(moldesItems);
+			respuesta.setMoldes(moldes);
+		}
 		servicioColeccionDiseno.crearColeccionDiseno(nuevoDisenoDTO, disenor);
 		
 		return respuesta;

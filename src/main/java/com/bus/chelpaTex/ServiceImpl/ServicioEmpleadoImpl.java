@@ -1,5 +1,6 @@
 package com.bus.chelpaTex.ServiceImpl;
 
+import java.security.InvalidParameterException;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ServicioEmpleadoImpl implements ServicioEmpleado{
 	ManejadorEmpleado manejadorEmpleado;
 	
 	@Override
-	public EmpleadoDTO crear (EmpleadoDTO empleadoDTO) {
+	public EmpleadoDTO crear (EmpleadoDTO empleadoDTO) throws InvalidParameterException{
 		try {
 		Empleado empleado = new Empleado();
 		empleado.setNumeroIdentificacion(empleadoDTO.getNumeroIdentificacion());
@@ -32,9 +33,9 @@ public class ServicioEmpleadoImpl implements ServicioEmpleado{
 		manejadorEmpleado.save(empleado);
 		return empleadoDTO;
 		}
-		catch(Exception e){
+		catch(InvalidParameterException e){
 			logger.info(e.getMessage() + e.getCause());
-			return null;
+			throw new InvalidParameterException("No se puede crear el Empleado, revise parametros");
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.bus.chelpaTex.ServiceImpl;
 
+import java.security.InvalidParameterException;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class ServicioCifImpl implements ServicioCif{
 			}
 			catch(Exception e){
 				logger.info(e.getMessage() + e.getCause());
-				return null;
+				throw new InvalidParameterException("No se pudo crear el cif, revise parametros");
 			}
 		}
 	

@@ -40,8 +40,10 @@ public class DisenoDTO implements Serializable{
 	
 	private BigDecimal valorTotalMaquila;
 	
-	private BigDecimal valorTotalCif;
+	private BigDecimal valorTotalGastos;
 	
+	private BigDecimal valorTotalCif;
+		
 	private BigDecimal margenGanancia;
 	
 	private BigDecimal totalEstimado;

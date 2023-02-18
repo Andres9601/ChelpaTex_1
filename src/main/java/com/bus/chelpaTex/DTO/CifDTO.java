@@ -22,6 +22,8 @@ public class CifDTO implements Serializable{
 
 	private Long idCif;
 	
+	private String nombre;
+	
 	private String tipoCif;
 	
 	private BigDecimal valor;
@@ -29,6 +31,8 @@ public class CifDTO implements Serializable{
 	private Long periodo;
 	
 	private BigDecimal productividadPeriodo;
+	
+	private BigDecimal porcentajeCif;
 		
 	private Boolean activo;
 

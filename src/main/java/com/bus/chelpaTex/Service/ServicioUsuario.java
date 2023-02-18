@@ -15,10 +15,10 @@ public interface ServicioUsuario {
 	public List<UsuarioDTO> consultar ();
 	
 	@Qualifier("ServicioUsuarioImpl")
-	public UsuarioDTO crear(UsuarioDTO usuarioDTO);
+	public UsuarioDTO crear(UsuarioDTO usuarioDTO) throws Exception;
 	
 	@Qualifier("ServicioUsuarioImpl")
-	public RegistroDTO registrarUsuario (RegistroDTO registroDTO);
+	public RegistroDTO registrarUsuario (RegistroDTO registroDTO) throws Exception;
 	
 	@Qualifier("ServicioUsuarioImpl")
 	public RegistroDTO consultarDatosUsuario (String idUsuario);

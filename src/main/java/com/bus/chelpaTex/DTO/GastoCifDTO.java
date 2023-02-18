@@ -9,28 +9,17 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
-public class EmpleadoDTO implements Serializable{
-/**
+public class GastoCifDTO implements Serializable{
+	
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Long numeroIdentificacion;
-	
-	private String nombre;
-	
-	private BigDecimal salario;
-	
-	private String cargo;
-	
-	private String tarea;
-		
-	private BigDecimal productividad;
-	
-	private Boolean activo;
-	
-	
+	private BigDecimal valorGastos;
+	private BigDecimal valorCifs;
+
 }

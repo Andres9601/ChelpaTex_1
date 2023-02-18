@@ -1,5 +1,6 @@
 package com.bus.chelpaTex.ServiceImpl;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,9 +51,8 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	}
 
 	@Override
-	public UsuarioDTO crear(UsuarioDTO usuarioDTO) {
+	public UsuarioDTO crear(UsuarioDTO usuarioDTO) throws InvalidParameterException{
 		Optional<Usuario> usuarioExiste = manejadorUsuario.findOneByEmail(usuarioDTO.getEmail());
-		try {
 			if(!usuarioExiste.isPresent()) {
 			Usuario usuario = new Usuario();
 			usuario.setIdUsuario(usuarioDTO.getIdUsuario());	
@@ -61,17 +61,17 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 			usuario.setTelefono(usuarioDTO.getTelefono());
 			usuario.setActivo(usuarioDTO.getActivo());
 			manejadorUsuario.save(usuario);
+			return usuarioDTO;
 		}
-		}catch(Exception e){
-			logger.info(e.getMessage() + e.getCause());
-			return null;
-		}
-			
-		return usuarioDTO;
+			else {
+				logger.info("Parametros invalidos para crear un Usuario");
+				throw new InvalidParameterException("Parametros invalidos para crear un Usuario");
+			}
 	}
+			
 
 	@Override
-	public RegistroDTO registrarUsuario(RegistroDTO registroDTO) {
+	public RegistroDTO registrarUsuario(RegistroDTO registroDTO) throws Exception {
 		UsuarioDTO usuarioDto = registroDTO.getUsuarioDTO();
 		RolDTO rolDto = registroDTO.getRolDTO();
 		Optional<Usuario> usuarioExiste = manejadorUsuario.findOneByEmail(usuarioDto.getEmail());
@@ -89,13 +89,10 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 			}
 				
 		else {
-			UsuarioRolPK usuRolPk = new UsuarioRolPK();
-			usuRolPk.setIdUsuario(null);
-			UsuarioRolDTO usuRolDto = new UsuarioRolDTO();
-			usuRolDto.setUsuarioRolPK(usuRolPk);
-			servicioUsuarioRol.crear(usuRolDto);
-			return null;
-		}
+			
+			logger.info("No se puede registrar el Usuario, el email ya esta registrado en base de datos");
+			throw new Exception("No se puede registrar el Usuario, el email ya esta registrado en base de datos");
+			}
 		
 	}
 

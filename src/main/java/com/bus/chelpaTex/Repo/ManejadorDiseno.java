@@ -23,6 +23,7 @@ public interface ManejadorDiseno extends JpaRepository<Diseno, Long> {
 			+ "d.valorTotalUnidades, "
 			+ "d.valorTotalEmpleados, "
 			+ "d.valorTotalMaquila, "
+			+ "d.valorTotalGastos, "
 			+ "d.valorTotalCif, "
 			+ "d.margenGanancia, "
 			+ "d.totalEstimado, "

@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.ServiceImpl;
 
 
+import java.security.InvalidParameterException;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ServicioUsuarioRolImpl implements ServicioUsuarioRol {
 	ManejadorUsuarioRol manejadorUsuarioRol;
 	
 	@Override
-	public UsuarioRolDTO crear(UsuarioRolDTO usuarioRolDTO) {
+	public UsuarioRolDTO crear(UsuarioRolDTO usuarioRolDTO) throws InvalidParameterException{
 
 		try {
 			UsuarioRol usuarioRol = new UsuarioRol();
@@ -29,9 +30,9 @@ public class ServicioUsuarioRolImpl implements ServicioUsuarioRol {
 			usuarioRol.setActivo(usuarioRolDTO.getActivo());
 			manejadorUsuarioRol.save(usuarioRol);
 			return usuarioRolDTO;
-		}catch(Exception e){
+		}catch(InvalidParameterException e){
 			logger.info(e.getMessage() + e.getCause());
-			return null;
+			throw new InvalidParameterException("Parametros invalidos");
 		}
 	}
 }

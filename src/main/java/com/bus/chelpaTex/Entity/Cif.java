@@ -1,5 +1,6 @@
 package com.bus.chelpaTex.Entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -21,8 +22,13 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @Entity
 @Table(name = "CIF")
-public class Cif {
+public class Cif implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(generator = "SEQ_CIF")
     @GenericGenerator(name = "SEQ_CIF", strategy = "increment")
@@ -32,6 +38,9 @@ public class Cif {
 	@Column(name = "tipo_cif")
 	private String tipoCif;
 	
+	@Column(name = "nombre")
+	private String nombre;
+	
 	@Column(name = "valor")
 	private BigDecimal valor;
 	
@@ -40,6 +49,9 @@ public class Cif {
 	
 	@Column(name = "productividad_periodo")
 	private BigDecimal productividadPeriodo;
+	
+	@Column(name = "porcentaje_cif")
+	private BigDecimal porcentajeCif;
 		
 	@Column(name = "activo")
 	private Boolean activo;

@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.Controller;
 
 import java.net.URISyntaxException;
+import java.security.InvalidParameterException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,8 @@ public class ControladorRol {
 		try { 
 			return ResponseEntity.ok(servicioRol.consultar());
 			
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);
+		} catch (InvalidParameterException e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede responder a tu solicitud en este momento "+e);
 		}
 		
 	}

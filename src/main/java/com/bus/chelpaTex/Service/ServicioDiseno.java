@@ -21,7 +21,7 @@ public interface ServicioDiseno {
 	public DisenoDTO crear (DisenoDTO disenoDTO);
 
 	@Qualifier("ServicioDisenoImpl")
-	public NuevoDisenoRespuesta nuevoDiseno (NuevoDisenoDTO nuevoDisenoDTO);
+	public NuevoDisenoRespuesta nuevoDiseno (NuevoDisenoDTO nuevoDisenoDTO) throws Exception;
 
 	@Qualifier("ServicioDisenoImpl")
 	public DisenoDTO actualizarDiseno (ActualizarDisenoDTO actualizarDisenoDTO);

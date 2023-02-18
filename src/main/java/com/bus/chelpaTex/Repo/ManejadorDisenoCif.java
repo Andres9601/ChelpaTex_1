@@ -16,10 +16,12 @@ public interface ManejadorDisenoCif extends JpaRepository<DisenoCif ,DisenoCifPK
 
 	@Query("Select NEW com.bus.chelpaTex.DTO.CifDTO( "
 			+  "d.idCif, "
+			+  "d.nombre, "
 			+  "d.tipoCif, "
 			+  "d.valor, "
 			+  "d.periodo, "
 			+  "d.productividadPeriodo, "
+			+  "d.porcentajeCif ,"
 			+  "d.activo ) "
 			+ "FROM Cif d JOIN DisenoCif cd ON d.idCif = cd.disenoCifPK.idCif "
 			+ "WHERE cd.disenoCifPK.idDiseno = :idDiseno" )

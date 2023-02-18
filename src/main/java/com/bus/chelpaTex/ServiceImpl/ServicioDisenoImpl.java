@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.ServiceImpl;
 
 import java.math.BigDecimal;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,27 +13,18 @@ import org.springframework.stereotype.Service;
 import com.bus.chelpaTex.DTO.ActualizarDisenoDTO;
 import com.bus.chelpaTex.DTO.CifDTO;
 import com.bus.chelpaTex.DTO.ColeccionDTO;
-import com.bus.chelpaTex.DTO.ColeccionDisenoDTO;
 import com.bus.chelpaTex.DTO.DisenoDTO;
 import com.bus.chelpaTex.DTO.EmpleadoDTO;
-import com.bus.chelpaTex.DTO.ItemDTO;
+import com.bus.chelpaTex.DTO.GastoCifDTO;
 import com.bus.chelpaTex.DTO.MaquilaDTO;
 import com.bus.chelpaTex.DTO.MoldeDTO;
-import com.bus.chelpaTex.DTO.MoldeItemDTO;
 import com.bus.chelpaTex.DTO.NuevoDisenoDTO;
 import com.bus.chelpaTex.DTO.NuevoDisenoRespuesta;
-import com.bus.chelpaTex.Entity.Cif;
 import com.bus.chelpaTex.Entity.ColeccionDisenoPK;
 import com.bus.chelpaTex.Entity.Diseno;
-import com.bus.chelpaTex.Entity.DisenoCif;
 import com.bus.chelpaTex.Entity.DisenoCifPK;
-import com.bus.chelpaTex.Entity.DisenoEmpleado;
 import com.bus.chelpaTex.Entity.DisenoEmpleadoPK;
-import com.bus.chelpaTex.Entity.DisenoMaquila;
 import com.bus.chelpaTex.Entity.DisenoMaquilaPK;
-import com.bus.chelpaTex.Entity.Empleado;
-import com.bus.chelpaTex.Entity.Maquila;
-import com.bus.chelpaTex.Entity.Molde;
 import com.bus.chelpaTex.Repo.ManejadorCif;
 import com.bus.chelpaTex.Repo.ManejadorColeccionDiseno;
 import com.bus.chelpaTex.Repo.ManejadorDiseno;
@@ -41,10 +33,13 @@ import com.bus.chelpaTex.Repo.ManejadorDisenoEmpleado;
 import com.bus.chelpaTex.Repo.ManejadorDisenoMaquila;
 import com.bus.chelpaTex.Repo.ManejadorEmpleado;
 import com.bus.chelpaTex.Repo.ManejadorMaquila;
-import com.bus.chelpaTex.Repo.ManejadorMolde;
-import com.bus.chelpaTex.Repo.ManejadorMoldeItem;
 import com.bus.chelpaTex.Service.ServicioColeccionDiseno;
 import com.bus.chelpaTex.Service.ServicioDiseno;
+import com.bus.chelpaTex.Service.ServicioDisenoCif;
+import com.bus.chelpaTex.Service.ServicioDisenoEmpleado;
+import com.bus.chelpaTex.Service.ServicioDisenoMaquila;
+import com.bus.chelpaTex.Service.ServicioItem;
+import com.bus.chelpaTex.Service.ServicioMolde;
 
 @Service
 public class ServicioDisenoImpl implements ServicioDiseno{
@@ -56,13 +51,10 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 	ManejadorDiseno manejadorDiseno;
 	
 	@Autowired
-	ManejadorMolde manejadorMolde;
+	ServicioMolde servicioMolde;
 	
 	@Autowired
 	ServicioColeccionDiseno servicioColeccionDiseno;
-	
-	@Autowired
-	ManejadorMoldeItem manejadorMoldeItem;
 	
 	@Autowired
 	ManejadorEmpleado manejadorEmpleado;
@@ -84,6 +76,18 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 	
 	@Autowired 
 	ManejadorColeccionDiseno manejadorColeccionDiseno;
+	
+	@Autowired
+	ServicioItem servicioItem;
+	
+	@Autowired
+	ServicioDisenoEmpleado servicioDisenoEmpleado;
+	
+	@Autowired
+	ServicioDisenoMaquila servicioDisenoMaquila;
+	
+	@Autowired
+	ServicioDisenoCif servicioDisenoCif;
 	
 	
 	@Override
@@ -113,7 +117,7 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 	}
 
 	@Override
-	public DisenoDTO crear(DisenoDTO disenoDTO) {
+	public DisenoDTO crear(DisenoDTO disenoDTO) throws InvalidParameterException{
 		try {
 			Diseno diseno = new Diseno();
 			diseno.setIdUsuario(disenoDTO.getIdUsuario());
@@ -134,14 +138,15 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 			disenoDTO.setIdDiseno(diseno.getIdDiseno());
 			return disenoDTO;
 			}
-			catch(Exception e){
+			catch(InvalidParameterException e){
 				logger.info(e.getMessage() + e.getCause());
-				return null;
+				throw new InvalidParameterException("No se pudo crear el diseño, revise parametros");
 			}
 		}
 
 	@Override
-	public NuevoDisenoRespuesta nuevoDiseno(NuevoDisenoDTO nuevoDisenoDTO) {
+	public NuevoDisenoRespuesta nuevoDiseno(NuevoDisenoDTO nuevoDisenoDTO) throws Exception{
+		try {
 		DisenoDTO diseno = new DisenoDTO();
 		diseno.setNombre(nuevoDisenoDTO.getNombre());
 		diseno.setIdUsuario(nuevoDisenoDTO.getIdUsuario());
@@ -152,39 +157,30 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		NuevoDisenoRespuesta respuesta = new NuevoDisenoRespuesta();
 		respuesta.setIdDiseno(disenor.getIdDiseno());
 		respuesta.setNombre(disenor.getNombre());
-		List<Molde> moldesTemp = manejadorMolde.moldesFiltro(nuevoDisenoDTO.getTipoPrenda(),
-				nuevoDisenoDTO.getTipoModa(), nuevoDisenoDTO.getObjetivo(), nuevoDisenoDTO.getTipoAcabado());
-		List<MoldeDTO> moldes = new ArrayList<MoldeDTO>();
-		for (Molde moldeTemp : moldesTemp) {
-			MoldeDTO molde = new MoldeDTO();
-			molde.setIdMolde(moldeTemp.getIdMolde());
-			molde.setNombre(moldeTemp.getNombre());
-			molde.setFechaCreacion(moldeTemp.getFechaCreacion());
-			molde.setPrecio(moldeTemp.getPrecio());
-			molde.setTipoMolde(moldeTemp.getTipoMolde());
-			molde.setTipoPrenda(moldeTemp.getTipoPrenda());
-			molde.setTipoModa(moldeTemp.getTipoModa());
-			molde.setObjetivo(moldeTemp.getObjetivo());
-			molde.setTipoAcabado(moldeTemp.getTipoAcabado());
-			molde.setAnchoTela(moldeTemp.getAnchoTela());
-			molde.setConsumoTotal(moldeTemp.getConsumoTotal());
-			molde.setTipoProduccion(moldeTemp.getTipoProduccion());
-			molde.setTipoCascada(moldeTemp.getTipoCascada());
-			molde.setCaracteristicas(moldeTemp.getCaracteristicas());
-			molde.setRutaArchivo(moldeTemp.getRutaArchivo());
-			molde.setActivo(moldeTemp.getActivo());
-			moldes.add(molde);
-			
-		}
+		MoldeDTO molde = nuevoDisenoDTO.getMolde();
+		
+		if(!molde.getTipoMolde().equals("PROPIO")) {
+		List<MoldeDTO> moldes = servicioMolde.consultarMoldesParametros(molde);
+	
 		respuesta.setMoldes(moldes);
-		ColeccionDisenoDTO coleccionDisenoDTO = new ColeccionDisenoDTO();
-		ColeccionDisenoPK coleccionDisenoPK = new ColeccionDisenoPK();
-		coleccionDisenoPK.setIdColeccion(nuevoDisenoDTO.getIdColeccion());
-		coleccionDisenoPK.setIdDiseno(disenor.getIdDiseno());
-		coleccionDisenoDTO.setColeccionDisenoPK(coleccionDisenoPK);
-		servicioColeccionDiseno.crear(coleccionDisenoDTO);
+		}
+		else
+		{
+			List<MoldeDTO> moldes = new ArrayList<MoldeDTO>();
+			MoldeDTO moldeDTO = servicioMolde.crearDisenoConMolde(molde);
+			moldes.add(moldeDTO);
+			List<MoldeDTO> moldesItems = servicioMolde.consultarMoldesParametros(molde);
+			moldes.addAll(moldesItems);
+			respuesta.setMoldes(moldes);
+		}
+		servicioColeccionDiseno.crearColeccionDiseno(nuevoDisenoDTO, disenor);
 		
 		return respuesta;
+		}
+		catch(Exception e) {
+			logger.info(e.getMessage() +e.getCause());
+			throw new Exception("No se pudo crear el Diseno");
+		}
 	}
 
 	
@@ -199,94 +195,35 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		disenoDTO.setIdTrazabilidad("d-" + actualizarDisenoDTO.getIdDiseno());
 		disenoDTO.setUnidades(actualizarDisenoDTO.getUnidades());
 		
+		BigDecimal valorTotalUnidades = servicioItem.calcularValorTotalUnidades(actualizarDisenoDTO);
 		
-		Molde molde = manejadorMolde.getReferenceById(actualizarDisenoDTO.getIdMolde());
-		List<ItemDTO> items = manejadorMoldeItem.ItemsMolde(actualizarDisenoDTO.getIdMolde());
-		BigDecimal valorItems = BigDecimal.valueOf(0);
-		for(ItemDTO item:items)
-		{
-			MoldeItemDTO moldeItem = manejadorMoldeItem.cantidadItemMolde(item.getIdItem(), actualizarDisenoDTO.getIdMolde());
-			BigDecimal cantidad = moldeItem.getCantidad();
-			valorItems= valorItems.add(item.getPrecioUnidad().multiply(cantidad));
-		}
-		BigDecimal valorTotalUnidades = molde.getPrecio().add(valorItems.multiply(actualizarDisenoDTO.getUnidades()));
 		disenoDTO.setValorTotalUnidades(valorTotalUnidades);
-		
+
 		List<EmpleadoDTO> empleados = actualizarDisenoDTO.getEmpleados();
-		BigDecimal valorEmpleados = BigDecimal.valueOf(0);
-		for(EmpleadoDTO empleado: empleados) {
-			BigDecimal salario = empleado.getSalario();
-			BigDecimal productividad = empleado.getProductividad();
-			valorEmpleados = valorEmpleados.add(salario.divide(productividad));
-			
-			Empleado empleadoTemp = new  Empleado();
-			empleadoTemp.setNumeroIdentificacion(empleado.getNumeroIdentificacion());
-			empleadoTemp.setNombre(empleado.getNombre());
-			empleadoTemp.setSalario(salario);
-			empleadoTemp.setCargo(empleado.getCargo());
-			empleadoTemp.setProductividad(productividad);
-			empleadoTemp.setActivo(true);
-			manejadorEmpleado.save(empleadoTemp);
-			
-			DisenoEmpleado disenoEmpleado = new DisenoEmpleado();
-			DisenoEmpleadoPK disenoEmpleadoPK = new DisenoEmpleadoPK();
-			disenoEmpleadoPK.setIdDiseno(actualizarDisenoDTO.getIdDiseno());
-			disenoEmpleadoPK.setNumeroIdentificacion(empleado.getNumeroIdentificacion());
-			disenoEmpleado.setDisenoEmpleadoPK(disenoEmpleadoPK);
-			disenoEmpleado.setActivo(true);
-			manejadorDisenoEmpleado.save(disenoEmpleado);
-			}
-		BigDecimal valorTolalEmpleados = valorEmpleados.multiply(actualizarDisenoDTO.getUnidades());
+		
+		BigDecimal valorEmpleados = servicioDisenoEmpleado.calcularValorEmpleados(empleados, actualizarDisenoDTO);
+		BigDecimal valorTolalEmpleados= valorEmpleados.multiply(actualizarDisenoDTO.getUnidades());
 		disenoDTO.setValorTotalEmpleados(valorTolalEmpleados);
 		
-		
 		List<Long> idMaquilas = actualizarDisenoDTO.getIdsMaquilas();
-		BigDecimal valorMaquilas = BigDecimal.valueOf(0);
-		for(Long idMaquila : idMaquilas) {
-			Maquila maquila = manejadorMaquila.getReferenceById(idMaquila);
-			BigDecimal precioUnidad = maquila.getPrecioUnidad();
-			valorMaquilas = valorMaquilas.add(precioUnidad);
-			
-			DisenoMaquila disenoMaquila = new DisenoMaquila();
-			DisenoMaquilaPK disenoMaquilaPK = new DisenoMaquilaPK();
-			disenoMaquilaPK.setIdDiseno(actualizarDisenoDTO.getIdDiseno());
-			disenoMaquilaPK.setIdMaquila(idMaquila);
-			disenoMaquila.setDisenoMaquilaPK(disenoMaquilaPK);
-			disenoMaquila.setActivo(true);
-			manejadorDisenoMaquila.save(disenoMaquila);
-		}
+		BigDecimal valorMaquilas = servicioDisenoMaquila.calcularValorMaquilas(idMaquilas,actualizarDisenoDTO);
 		
 		BigDecimal valorTotalMaquilas = valorMaquilas.multiply(actualizarDisenoDTO.getUnidades());
 		disenoDTO.setValorTotalMaquila(valorTotalMaquilas);
 		
 		List<CifDTO> cifs = actualizarDisenoDTO.getCifs();
-		BigDecimal valorCifs = BigDecimal.valueOf(0);
-		for(CifDTO cif : cifs) {
-			BigDecimal valor = cif.getValor();
-			BigDecimal productividadPeriodo =cif.getProductividadPeriodo();
-			valorCifs = valorCifs.add(valor.divide(productividadPeriodo));
-			
-			Cif cifTemp = new Cif();
-			cifTemp.setIdCif(cif.getIdCif());
-			cifTemp.setTipoCif(cif.getTipoCif());
-			cifTemp.setValor(valor);
-			cifTemp.setPeriodo(cif.getPeriodo());
-			cifTemp.setProductividadPeriodo(productividadPeriodo);
-			cifTemp.setActivo(true);
-			cifTemp = manejadorCif.save(cifTemp);
-			
-			DisenoCif disenoCif= new DisenoCif();
-			DisenoCifPK disenoCifPK = new DisenoCifPK();
-			disenoCifPK.setIdDiseno(actualizarDisenoDTO.getIdDiseno());
-			disenoCifPK.setIdCif(cifTemp.getIdCif());
-			disenoCif.setDisenoCifPK(disenoCifPK);
-			disenoCif.setActivo(true);
-			manejadorDisenoCif.save(disenoCif);
-		}
+		GastoCifDTO gastosCifDTO = servicioDisenoCif.calcularValorCifs(cifs,actualizarDisenoDTO);
+		BigDecimal valorGastos = gastosCifDTO.getValorGastos();
+		BigDecimal valorCifs = gastosCifDTO.getValorCifs();		
+		
+		BigDecimal valorTotalGastos = valorGastos.multiply(actualizarDisenoDTO.getUnidades());
+		disenoDTO.setValorTotalGastos(valorTotalGastos);
+		
 		BigDecimal valorTotalCifs = valorCifs.multiply(actualizarDisenoDTO.getUnidades());
 		disenoDTO.setValorTotalCif(valorTotalCifs);
 		
-		BigDecimal totalEstimado = valorTotalUnidades.add(valorTolalEmpleados).add(valorTotalMaquilas).add(valorTotalCifs);
+		
+		BigDecimal totalEstimado = valorTotalUnidades.add(valorTolalEmpleados).add(valorTotalMaquilas).add(valorTotalGastos);
 		disenoDTO.setTotalEstimado(totalEstimado);
 		disenoDTO.setActivo(actualizarDisenoDTO.getActivo());
 		
@@ -309,18 +246,22 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 	}
 
 	@Override
-	public DisenoDTO actualizarDisenoMg(DisenoDTO disenoDTO) {
+	public DisenoDTO actualizarDisenoMg(DisenoDTO disenoDTO) throws InvalidParameterException {
 		Diseno diseno = manejadorDiseno.getReferenceById(disenoDTO.getIdDiseno());
 		BigDecimal margenGanancia = disenoDTO.getMargenGanancia();
 		BigDecimal totalEstimado = diseno.getTotalEstimado();
 		BigDecimal unidades = diseno.getUnidades();
-		BigDecimal precioSugeridoVenta = (totalEstimado.divide(unidades)).multiply((BigDecimal.valueOf(1).add(margenGanancia.divide(BigDecimal.valueOf(100)))));
+		if(!disenoDTO.getMargenGanancia().equals(BigDecimal.valueOf(100))) {
+		BigDecimal precioSugeridoVenta = (totalEstimado.divide(unidades)).divide((BigDecimal.valueOf(1).subtract(margenGanancia.divide(BigDecimal.valueOf(100)))));
 		disenoDTO.setPrecioSugeridoVenta(precioSugeridoVenta);
-		
 		diseno.setMargenGanancia(margenGanancia);
 		diseno.setPrecioSugeridoVenta(precioSugeridoVenta);
 		manejadorDiseno.save(diseno);
 		return disenoDTO;
+		}
+		else {
+			throw new InvalidParameterException("El margen de ganancia debe ser diferente a 100");
+		}
 	}
 
 	@Override

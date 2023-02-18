@@ -1,5 +1,6 @@
 package com.bus.chelpaTex.ServiceImpl;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,7 +55,7 @@ public class ServicioMoldeImpl implements ServicioMolde {
 
 //COMPLETAR
 	@Override
-	public MoldeDTO crear(MoldeDTO moldeDTO) {
+	public MoldeDTO crear(MoldeDTO moldeDTO) throws InvalidParameterException{
 		try {
 		Molde molde = new Molde();
 		molde.setIdUsuario(moldeDTO.getIdUsuario());
@@ -64,10 +65,59 @@ public class ServicioMoldeImpl implements ServicioMolde {
 		manejadorMolde.save(molde);
 		return moldeDTO;
 		}
-		catch(Exception e){
-			logger.info(e.getMessage() + e.getCause());
-			return null;
+		catch(InvalidParameterException e){
+			logger.info(e.getCause() + e.getMessage());
+			throw new InvalidParameterException("No se puede crear el molde, revise parametros");
 		}
 	}
+
+
+	@Override
+	public List<MoldeDTO> consultarMoldesParametros(MoldeDTO molder) {
+		List<Molde> moldesTemp = manejadorMolde.moldesFiltro(molder.getTipoPrenda(),
+				molder.getTipoModa(), molder.getObjetivo(), molder.getTipoAcabado());
+		List<MoldeDTO> moldes = new ArrayList<MoldeDTO>();
+		for (Molde moldeTemp : moldesTemp) {
+			MoldeDTO molde = new MoldeDTO();
+			molde.setIdMolde(moldeTemp.getIdMolde());
+			molde.setNombre(moldeTemp.getNombre());
+			molde.setFechaCreacion(moldeTemp.getFechaCreacion());
+			molde.setPrecio(moldeTemp.getPrecio());
+			molde.setTipoMolde(moldeTemp.getTipoMolde());
+			molde.setTipoPrenda(moldeTemp.getTipoPrenda());
+			molde.setTipoModa(moldeTemp.getTipoModa());
+			molde.setObjetivo(moldeTemp.getObjetivo());
+			molde.setTipoAcabado(moldeTemp.getTipoAcabado());
+			molde.setAnchoTela(moldeTemp.getAnchoTela());
+			molde.setConsumoTotal(moldeTemp.getConsumoTotal());
+			molde.setTipoProduccion(moldeTemp.getTipoProduccion());
+			molde.setTipoCascada(moldeTemp.getTipoCascada());
+			molde.setCaracteristicas(moldeTemp.getCaracteristicas());
+			molde.setRutaArchivo(moldeTemp.getRutaArchivo());
+			molde.setActivo(moldeTemp.getActivo());
+			moldes.add(molde);
+			
+		}
+		return moldes;
+	}
+
+
+	@Override
+	public MoldeDTO crearDisenoConMolde(MoldeDTO moldeTemp) {
+		Molde molde = new Molde();
+		molde.setTipoMolde(moldeTemp.getTipoMolde());
+		molde.setTipoPrenda(moldeTemp.getTipoPrenda());
+		molde.setTipoModa(moldeTemp.getTipoModa());
+		molde.setObjetivo(moldeTemp.getObjetivo());
+		molde.setTipoAcabado(moldeTemp.getTipoAcabado());
+		molde.setNombre(moldeTemp.getNombre());
+		molde = manejadorMolde.save(molde);
+		moldeTemp.setIdMolde(molde.getIdMolde());
+		return moldeTemp;
+		
+	}
+	
+	
+	
 
 }

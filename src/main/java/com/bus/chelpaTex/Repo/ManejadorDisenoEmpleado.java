@@ -19,6 +19,7 @@ public interface ManejadorDisenoEmpleado extends JpaRepository<DisenoEmpleado, D
 			+  "d.nombre, "
 			+  "d.salario, "
 			+  "d.cargo, "
+			+  "d.tarea, "
 			+  "d.productividad, "
 			+  "d.activo ) "
 			+ "FROM Empleado d JOIN DisenoEmpleado cd ON d.numeroIdentificacion = cd.disenoEmpleadoPK.numeroIdentificacion "

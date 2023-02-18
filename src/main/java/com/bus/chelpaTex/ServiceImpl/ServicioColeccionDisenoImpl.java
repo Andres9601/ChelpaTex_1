@@ -1,12 +1,16 @@
 package com.bus.chelpaTex.ServiceImpl;
 
+import java.security.InvalidParameterException;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bus.chelpaTex.DTO.ColeccionDisenoDTO;
+import com.bus.chelpaTex.DTO.DisenoDTO;
+import com.bus.chelpaTex.DTO.NuevoDisenoDTO;
 import com.bus.chelpaTex.Entity.ColeccionDiseno;
+import com.bus.chelpaTex.Entity.ColeccionDisenoPK;
 import com.bus.chelpaTex.Repo.ManejadorColeccionDiseno;
 import com.bus.chelpaTex.Service.ServicioColeccionDiseno;
 
@@ -29,9 +33,20 @@ public class ServicioColeccionDisenoImpl implements ServicioColeccionDiseno{
 			return coleccionDisenoDTO;
 		}catch(Exception e){
 			logger.info(e.getMessage() + e.getCause());
-			return null;
+			throw new InvalidParameterException("Parametros invalidos");
 		}
 	
+	}
+
+	@Override
+	public ColeccionDisenoDTO crearColeccionDiseno(NuevoDisenoDTO nuevoDisenoDTO, DisenoDTO disenor) {
+		ColeccionDisenoDTO coleccionDisenoDTO = new ColeccionDisenoDTO();
+		ColeccionDisenoPK coleccionDisenoPK = new ColeccionDisenoPK();
+		coleccionDisenoPK.setIdColeccion(nuevoDisenoDTO.getIdColeccion());
+		coleccionDisenoPK.setIdDiseno(disenor.getIdDiseno());
+		coleccionDisenoDTO.setColeccionDisenoPK(coleccionDisenoPK);
+		this.crear(coleccionDisenoDTO);
+		return coleccionDisenoDTO;
 	}
 	
 	

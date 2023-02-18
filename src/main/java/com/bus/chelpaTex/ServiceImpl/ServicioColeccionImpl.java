@@ -114,11 +114,13 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 	@Override
 	public ColeccionDTO nuevaColeccion(ColeccionDTO coleccionDTO) throws Exception {
 		if(!coleccionDTO.getNombre().isEmpty()) {
-		this.crear(coleccionDTO);}
-		else {
-			new Exception("Falta el nombre");
-		}
+		this.crear(coleccionDTO);
 		return coleccionDTO;
+				}
+		else {
+			throw new Exception("Falta el nombre");
+			}
+
 	}
 
 
@@ -149,4 +151,10 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 		coleccionCompleta.setCostoColeccion(CostoColeccion);
 		return coleccionCompleta;
 	}
+	
+	
+	
+	
+	
+	
 }

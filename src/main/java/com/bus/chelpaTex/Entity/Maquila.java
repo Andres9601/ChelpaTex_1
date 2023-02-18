@@ -1,5 +1,6 @@
 package com.bus.chelpaTex.Entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -21,7 +22,12 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @Entity
 @Table(name = "MAQUILA")
-public class Maquila {
+public class Maquila implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 
 	@Id

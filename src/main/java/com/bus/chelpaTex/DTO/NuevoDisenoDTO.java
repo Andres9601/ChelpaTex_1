@@ -23,12 +23,6 @@ public class NuevoDisenoDTO implements Serializable{
 	
 	private String nombre;
 	
-	private String tipoPrenda;
-	
-	private String tipoModa;
-	
-	private String objetivo;
-	
-	private String tipoAcabado;
+	private MoldeDTO molde;
 
 }

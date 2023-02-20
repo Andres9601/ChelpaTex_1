@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.auth.UserRecord.CreateRequest;
@@ -17,9 +16,9 @@ public class FirebaseService {
 	FirebaseInit firebaseInit;
 	
 	
-	public String createUsers(String email, String password) throws FirebaseAuthException {
+	public String createUsers(String email, String password) throws Exception {
 		
-		firebaseInit.inicializacion();
+		FirebaseInit.inicializacion();
 		CreateRequest request = new CreateRequest()
 			    .setEmail(email)
 			    .setEmailVerified(true)
@@ -39,7 +38,7 @@ public class FirebaseService {
 	
 	public  FirebaseToken verifyToken (String idToken) throws FirebaseException{
 		try {
-		firebaseInit.inicializacion();
+		FirebaseInit.inicializacion();
 		FirebaseToken respuesta = FirebaseAuth.getInstance().verifyIdToken(idToken);
 			return respuesta;
 		}catch (Exception e) {

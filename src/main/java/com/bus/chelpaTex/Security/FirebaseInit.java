@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuthException;
 
 @Service
 public class FirebaseInit {
@@ -15,7 +16,7 @@ public class FirebaseInit {
 //	private static final String FIREBASE_DATABASEURL = "https://chelpa-tex-dev.firebaseio.com";
 	private static final String FIREBASE_CONFIG = "firebase.json";
 		
-		public static void inicializacion() throws Exception {
+		public static void inicializacion() throws FirebaseAuthException {
 		    try {
 		        InputStream serviceAccount = FirebaseInit.class.getClassLoader().getResourceAsStream(FIREBASE_CONFIG);
 		        firebaseOptions = new FirebaseOptions.Builder()
@@ -23,7 +24,6 @@ public class FirebaseInit {
 		                .build();
 		        FirebaseApp.initializeApp(firebaseOptions);
 		} catch (Exception e){
-			throw new Exception("Fallo al inicializar FirebaseApp");
 		}
 		
 		}

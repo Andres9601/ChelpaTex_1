@@ -28,6 +28,7 @@ public class ServicioEmpleadoImpl implements ServicioEmpleado{
 		empleado.setNombre(empleadoDTO.getNombre());
 		empleado.setSalario(empleadoDTO.getSalario());
 		empleado.setCargo(empleadoDTO.getCargo());
+		empleado.setTarea(empleadoDTO.getTarea());
 		empleado.setProductividad(empleadoDTO.getProductividad());
 		empleado.setActivo(true);
 		manejadorEmpleado.save(empleado);

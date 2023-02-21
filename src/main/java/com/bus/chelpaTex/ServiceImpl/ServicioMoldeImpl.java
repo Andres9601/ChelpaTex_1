@@ -13,13 +13,15 @@ import com.bus.chelpaTex.DTO.MoldeDTO;
 import com.bus.chelpaTex.Entity.Molde;
 import com.bus.chelpaTex.Repo.ManejadorMolde;
 import com.bus.chelpaTex.Service.ServicioMolde;
+import com.bus.chelpaTex.Service.Utils.ServiceUtil;
 
 @Service
 public class ServicioMoldeImpl implements ServicioMolde {
 	
 	private static final Logger logger =  Logger.getLogger(ServicioMolde.class.getName());
 
-
+	@Autowired
+	ServiceUtil serviceUtil;
 
 	@Autowired
 	ManejadorMolde manejadorMolde;
@@ -55,12 +57,25 @@ public class ServicioMoldeImpl implements ServicioMolde {
 
 //COMPLETAR
 	@Override
-	public Molde crear(MoldeDTO moldeDTO) throws InvalidParameterException{
+	public Molde crear(MoldeDTO moldeDTO) throws  Exception{
 		try {
 		Molde molde = new Molde();
+		serviceUtil.copiarAtributos(moldeDTO, molde);
+		/*molde.setTipoMolde(moldeDTO.getTipoMolde());
+		molde.setTipoPrenda(moldeDTO.getTipoPrenda());
+		molde.setTipoModa(moldeDTO.getTipoModa());
+		molde.setObjetivo(moldeDTO.getObjetivo());
+		molde.setTipoAcabado(moldeDTO.getTipoAcabado());
 		molde.setIdUsuario(moldeDTO.getIdUsuario());
 		molde.setNombre(moldeDTO.getNombre());
+		molde.setRutaArchivo(moldeDTO.getRutaArchivo()); */
 		molde.setFechaCreacion(new Date());
+	/*	molde.setPrecio(moldeDTO.getPrecio());
+		molde.setAnchoTela(moldeDTO.getAnchoTela());
+		molde.setConsumoTotal(moldeDTO.getConsumoTotal());
+		molde.setTipoProduccion(moldeDTO.getTipoProduccion());
+		molde.setTipoCascada(moldeDTO.getTipoCascada());
+		molde.setCaracteristicas(moldeDTO.getCaracteristicas()); */
 		molde.setActivo(true);
 		manejadorMolde.save(molde);
 		return molde;
@@ -103,7 +118,7 @@ public class ServicioMoldeImpl implements ServicioMolde {
 
 
 	@Override
-	public MoldeDTO crearDisenoConMolde(MoldeDTO moldeTemp) {
+	public MoldeDTO crearDisenoConMolde(MoldeDTO moldeTemp) throws Exception {
 		Molde molde = this.crear(moldeTemp);
 		moldeTemp.setIdMolde(molde.getIdMolde());
 		return moldeTemp;

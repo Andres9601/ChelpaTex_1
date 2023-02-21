@@ -164,6 +164,9 @@ import lombok.AllArgsConstructor;
 		@Column(name = "unidad")
 		private String unidad;
 		
+		@Column(name = "id_usuario")
+		private String idUsuario;
+		
 		@Column(name = "activo")
 		private Boolean activo;
 

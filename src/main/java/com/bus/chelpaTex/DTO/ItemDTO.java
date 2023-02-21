@@ -103,6 +103,8 @@ public class ItemDTO implements Serializable{
 	private String encogimiento;
 	
 	private String unidad;	
+	
+	private String idUsuario;
 			
 	private Boolean activo;
 

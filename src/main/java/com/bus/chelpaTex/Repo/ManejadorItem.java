@@ -21,6 +21,17 @@ public interface ManejadorItem extends JpaRepository<Item, Long> {
 			+  "d.activo) "
 			+ "FROM Item d WHERE d.tipoItem = :tipoItem" )
 	public List<ItemDTO> consultarItemsTipo(String tipoItem);
+
+	
+	@Query("Select NEW com.bus.chelpaTex.DTO.ItemDTO( "
+			+  "d.idItem, "
+			+  "d.tipoItem, "
+			+  "d.idTrazabilidad, "
+			+  "d.precioUnidad, "
+			+  "d.cantidadMinima, "
+			+  "d.activo) "
+			+ "FROM Item d WHERE d.idUsuario = :idUsuario" )
+	public List<ItemDTO> consultarItemsUsuario(String idUsuario);
 	
 	
 

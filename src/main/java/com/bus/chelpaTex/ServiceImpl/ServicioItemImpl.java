@@ -80,6 +80,18 @@ public class ServicioItemImpl implements ServicioItem{
 		throw new Exception("No se puede guardar el item, revise parametros");
 		}
 		}
+
+	@Override
+	public List<ItemDTO> consultarItemsUsuario(String idUsuario) {
+		try {
+			List<ItemDTO> items = manejadorItem.consultarItemsUsuario(idUsuario);
+			return items;
+		}
+		catch(InvalidParameterException e){
+			logger.info(e.getCause() + e.getMessage());
+			throw new InvalidParameterException("No se pueden consultar los items, revisar parametro");
+		}
+	}
 		
 	
 

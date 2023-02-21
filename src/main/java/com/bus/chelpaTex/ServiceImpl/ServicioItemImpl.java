@@ -69,6 +69,9 @@ public class ServicioItemImpl implements ServicioItem{
 		Item item = new Item();
 		try {
 		serviceUtil.copiarAtributos(itemDTO, item);
+		
+		item = manejadorItem.save(item);
+		item.setIdTrazabilidad("i-" + item.getIdItem());
 		manejadorItem.save(item);
 		return itemDTO;
 		}

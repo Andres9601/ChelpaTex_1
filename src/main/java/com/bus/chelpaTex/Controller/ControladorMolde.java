@@ -39,7 +39,7 @@ public class ControladorMolde {
 	}
 	
 	@PostMapping(path = "/crear", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> createUserFirebase(@RequestBody MoldeDTO moldeDTO )throws Exception {
+	public ResponseEntity<?> crear(@RequestBody MoldeDTO moldeDTO )throws Exception {
     	try {
     		return ResponseEntity.ok(servicioMolde.crear(moldeDTO));
     	}catch(Exception e){

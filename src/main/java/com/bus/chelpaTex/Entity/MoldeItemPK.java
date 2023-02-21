@@ -1,5 +1,6 @@
 package com.bus.chelpaTex.Entity;
 
+
 import java.io.Serializable;
 
 import javax.persistence.Basic;
@@ -17,11 +18,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class MoldeItemPK implements Serializable{
+	
+ 	/**
+ * 
+ */
+private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	 	@Basic(optional = false)
 	    @Column(name = "id_item")

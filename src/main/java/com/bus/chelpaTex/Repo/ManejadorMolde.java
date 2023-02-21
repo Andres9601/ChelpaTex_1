@@ -34,6 +34,7 @@ public interface ManejadorMolde extends JpaRepository<Molde, Long> {
 		   + " AND m.tipoModa = :tipoModa  "
 		   + " AND m.objetivo = :objetivo "
 		   + " AND m.tipoAcabado = :tipoAcabado "
+		   + " AND m.tipoMolde != 'PROPIO' "
 			)
 	public List<Molde> moldesFiltro (@Param("tipoPrenda") String tipoPrenda, @Param("tipoModa") String tipoModa,
 			@Param("objetivo") String objetivo,@Param("tipoAcabado") String tipoAcabado);

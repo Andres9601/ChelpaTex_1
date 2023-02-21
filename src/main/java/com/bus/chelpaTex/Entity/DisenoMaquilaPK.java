@@ -16,13 +16,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class DisenoMaquilaPK implements  Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class DisenoMaquilaPK implements Serializable{
 	
+ 	/**
+ * 
+ */
+private static final long serialVersionUID = 1L;
+
 	 	@Basic(optional = false)
 	    @Column(name = "id_maquila")
 

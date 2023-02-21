@@ -1,7 +1,5 @@
 package com.bus.chelpaTex.Entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,9 +16,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @Entity
 @Table(name = "ROL")
-public class Rol implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Rol {
 	
 	public static final String ENTIDAD_ROL_ID_ROL = "idUsuario";
 	public static final String ENTIDAD_ROL_ROL = "rol";

@@ -17,5 +17,8 @@ public interface ServicioItem {
 	
 	@Qualifier("ServicioItemImpl")
 	List<ItemDTO> consultarItemsTipo(String tipoItem);
+	
+	@Qualifier("ServicioItemImpl")
+	ItemDTO crear(ItemDTO itemDTO) throws  Exception;
 
 }

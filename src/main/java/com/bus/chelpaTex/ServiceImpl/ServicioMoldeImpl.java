@@ -55,7 +55,7 @@ public class ServicioMoldeImpl implements ServicioMolde {
 
 //COMPLETAR
 	@Override
-	public MoldeDTO crear(MoldeDTO moldeDTO) throws InvalidParameterException{
+	public Molde crear(MoldeDTO moldeDTO) throws InvalidParameterException{
 		try {
 		Molde molde = new Molde();
 		molde.setIdUsuario(moldeDTO.getIdUsuario());
@@ -63,7 +63,7 @@ public class ServicioMoldeImpl implements ServicioMolde {
 		molde.setFechaCreacion(new Date());
 		molde.setActivo(true);
 		manejadorMolde.save(molde);
-		return moldeDTO;
+		return molde;
 		}
 		catch(InvalidParameterException e){
 			logger.info(e.getCause() + e.getMessage());
@@ -104,14 +104,7 @@ public class ServicioMoldeImpl implements ServicioMolde {
 
 	@Override
 	public MoldeDTO crearDisenoConMolde(MoldeDTO moldeTemp) {
-		Molde molde = new Molde();
-		molde.setTipoMolde(moldeTemp.getTipoMolde());
-		molde.setTipoPrenda(moldeTemp.getTipoPrenda());
-		molde.setTipoModa(moldeTemp.getTipoModa());
-		molde.setObjetivo(moldeTemp.getObjetivo());
-		molde.setTipoAcabado(moldeTemp.getTipoAcabado());
-		molde.setNombre(moldeTemp.getNombre());
-		molde = manejadorMolde.save(molde);
+		Molde molde = this.crear(moldeTemp);
 		moldeTemp.setIdMolde(molde.getIdMolde());
 		return moldeTemp;
 		

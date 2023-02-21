@@ -16,7 +16,12 @@ public class ServiceInterceptorAppConfig implements WebMvcConfigurer  {
 		registry.addInterceptor(serviceInterceptors)
 		.excludePathPatterns(
 				"/**/webresources/controller/controladorUsuario/registrarUsuario/",
-				"/**/webresources/controller/controladorUsuario/consultar/"
+				"/**/webresources/controller/controladorUsuario/consultar/",
+				"/**/webresources/controller/",
+				"/**/*"
+				
+
+				
 
 				
 

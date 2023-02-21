@@ -167,6 +167,7 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		else
 		{
 			List<MoldeDTO> moldes = new ArrayList<MoldeDTO>();
+			molde.setIdUsuario(nuevoDisenoDTO.getIdUsuario());
 			MoldeDTO moldeDTO = servicioMolde.crearDisenoConMolde(molde);
 			moldes.add(moldeDTO);
 			List<MoldeDTO> moldesItems = servicioMolde.consultarMoldesParametros(molde);

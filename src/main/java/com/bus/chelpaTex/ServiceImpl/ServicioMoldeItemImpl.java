@@ -6,7 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bus.chelpaTex.DTO.CantidadItemDTO;
 import com.bus.chelpaTex.DTO.ItemDTO;
+import com.bus.chelpaTex.Entity.MoldeItem;
+import com.bus.chelpaTex.Entity.MoldeItemPK;
 import com.bus.chelpaTex.Repo.ManejadorMolde;
 import com.bus.chelpaTex.Repo.ManejadorMoldeItem;
 import com.bus.chelpaTex.Service.ServicioMoldeItem;
@@ -35,6 +38,24 @@ public class ServicioMoldeItemImpl implements ServicioMoldeItem{
 		else {
 			throw new InvalidParameterException("idMolde incorrecto");
 		}
+	}
+
+
+
+	@Override
+	public List<CantidadItemDTO> crearItemsMolde(List<CantidadItemDTO> itemsMolde) {
+		for (CantidadItemDTO itemMolde: itemsMolde) {
+			MoldeItem moldeItem = new MoldeItem();
+			MoldeItemPK moldeItemPK = new MoldeItemPK();
+			moldeItemPK.setIdMolde(itemMolde.getIdMolde());
+			moldeItemPK.setIdItem(itemMolde.getIdItem());
+			moldeItem.setMoldeItemPK(moldeItemPK);
+			moldeItem.setCantidad(itemMolde.getCantidad());
+			moldeItem.setActivo(true);
+			manejadorMoldeItem.save(moldeItem);
+		
+		}
+		return itemsMolde;
 	}
 	
 

@@ -27,28 +27,12 @@ public class ServicioMoldeImpl implements ServicioMolde {
 	ManejadorMolde manejadorMolde;
 	
 	@Override
-	public List<MoldeDTO> consultar(String tipoPrenda, String tipoModa, String objetivo, String tipoAcabado) {
+	public List<MoldeDTO> consultar(String tipoPrenda, String tipoModa, String objetivo, String tipoAcabado) throws IllegalAccessException {
 		List<Molde> moldesTemp = manejadorMolde.moldesFiltro( tipoPrenda, tipoModa, objetivo, tipoAcabado);
 		List<MoldeDTO> moldes = new ArrayList<MoldeDTO>();
 		for (Molde molde : moldesTemp) {
 			MoldeDTO moldeDTO = new MoldeDTO();
-			moldeDTO.setIdMolde(molde.getIdMolde());
-			moldeDTO.setIdUsuario(molde.getIdUsuario());
-			moldeDTO.setNombre(molde.getNombre());
-			moldeDTO.setFechaCreacion(molde.getFechaCreacion());
-			moldeDTO.setPrecio(molde.getPrecio());
-			moldeDTO.setTipoMolde(molde.getTipoMolde());
-			moldeDTO.setTipoPrenda(molde.getTipoPrenda());
-			moldeDTO.setTipoModa(molde.getTipoModa());
-			moldeDTO.setObjetivo(molde.getObjetivo());
-			moldeDTO.setTipoAcabado(molde.getTipoAcabado());
-			moldeDTO.setAnchoTela(molde.getAnchoTela());
-			moldeDTO.setConsumoTotal(molde.getConsumoTotal());
-			moldeDTO.setTipoProduccion(molde.getTipoProduccion());
-			moldeDTO.setTipoCascada(molde.getTipoCascada());
-			moldeDTO.setCaracteristicas(molde.getCaracteristicas());
-			moldeDTO.setRutaArchivo(molde.getRutaArchivo());
-			moldeDTO.setActivo(molde.getActivo());
+			serviceUtil.copiarAtributos(molde, moldeDTO);
 			moldes.add(moldeDTO);			
 		}
 	return moldes;
@@ -61,21 +45,7 @@ public class ServicioMoldeImpl implements ServicioMolde {
 		try {
 		Molde molde = new Molde();
 		serviceUtil.copiarAtributos(moldeDTO, molde);
-		/*molde.setTipoMolde(moldeDTO.getTipoMolde());
-		molde.setTipoPrenda(moldeDTO.getTipoPrenda());
-		molde.setTipoModa(moldeDTO.getTipoModa());
-		molde.setObjetivo(moldeDTO.getObjetivo());
-		molde.setTipoAcabado(moldeDTO.getTipoAcabado());
-		molde.setIdUsuario(moldeDTO.getIdUsuario());
-		molde.setNombre(moldeDTO.getNombre());
-		molde.setRutaArchivo(moldeDTO.getRutaArchivo()); */
 		molde.setFechaCreacion(new Date());
-	/*	molde.setPrecio(moldeDTO.getPrecio());
-		molde.setAnchoTela(moldeDTO.getAnchoTela());
-		molde.setConsumoTotal(moldeDTO.getConsumoTotal());
-		molde.setTipoProduccion(moldeDTO.getTipoProduccion());
-		molde.setTipoCascada(moldeDTO.getTipoCascada());
-		molde.setCaracteristicas(moldeDTO.getCaracteristicas()); */
 		molde.setActivo(true);
 		manejadorMolde.save(molde);
 		return molde;

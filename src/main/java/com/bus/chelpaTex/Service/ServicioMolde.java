@@ -13,7 +13,7 @@ import com.bus.chelpaTex.Entity.Molde;
 public interface ServicioMolde {
 	
 	@Qualifier("ServicioMoldeImpl")
-	public List<MoldeDTO> consultar(String tipoPrenda, String tipoModa, String objetivo, String tipoAcabado);
+	public List<MoldeDTO> consultar(String tipoPrenda, String tipoModa, String objetivo, String tipoAcabado) throws IllegalAccessException;
 	
 	@Qualifier("ServicioMoldeImpl")
 	public Molde crear (MoldeDTO moldeDTO) throws Exception;

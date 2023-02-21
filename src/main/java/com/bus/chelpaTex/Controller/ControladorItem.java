@@ -74,10 +74,12 @@ public class ControladorItem {
 
 	
 	@GetMapping(path= "/consultarItemsUsuario", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> consultarItemsUsuario(@RequestParam(value = "idUsuario") String idUsuario )throws URISyntaxException{
+	public ResponseEntity<?> consultarItemsUsuario(@RequestParam(value = "idUsuario") String idUsuario,
+			@RequestParam(value = "tipoItem") String tipoItem
+			)throws URISyntaxException{
 		
 		try { 
-			return ResponseEntity.ok(servicioItem.consultarItemsUsuario(idUsuario));
+			return ResponseEntity.ok(servicioItem.consultarItemsUsuario(idUsuario,tipoItem));
 			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);

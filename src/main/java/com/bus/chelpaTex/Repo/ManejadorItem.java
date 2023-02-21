@@ -30,8 +30,8 @@ public interface ManejadorItem extends JpaRepository<Item, Long> {
 			+  "d.precioUnidad, "
 			+  "d.cantidadMinima, "
 			+  "d.activo) "
-			+ "FROM Item d WHERE d.idUsuario = :idUsuario" )
-	public List<ItemDTO> consultarItemsUsuario(String idUsuario);
+			+ "FROM Item d WHERE d.idUsuario = :idUsuario AND d.tipoItem = :tipoItem" )
+	public List<ItemDTO> consultarItemsUsuarioTipo(String idUsuario, String tipoItem);
 	
 	
 

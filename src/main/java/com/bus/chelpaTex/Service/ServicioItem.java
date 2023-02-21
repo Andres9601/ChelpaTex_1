@@ -22,6 +22,6 @@ public interface ServicioItem {
 	ItemDTO crear(ItemDTO itemDTO) throws  Exception;
 
 	@Qualifier
-	List<ItemDTO> consultarItemsUsuario(String idUsuario);
+	List<ItemDTO> consultarItemsUsuario(String idUsuario, String tipoItem);
 
 }

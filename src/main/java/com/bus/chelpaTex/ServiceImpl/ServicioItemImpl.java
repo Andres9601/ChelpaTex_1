@@ -82,9 +82,9 @@ public class ServicioItemImpl implements ServicioItem{
 		}
 
 	@Override
-	public List<ItemDTO> consultarItemsUsuario(String idUsuario) {
+	public List<ItemDTO> consultarItemsUsuario(String idUsuario, String tipoItem) {
 		try {
-			List<ItemDTO> items = manejadorItem.consultarItemsUsuario(idUsuario);
+			List<ItemDTO> items = manejadorItem.consultarItemsUsuarioTipo(idUsuario, tipoItem);
 			return items;
 		}
 		catch(InvalidParameterException e){

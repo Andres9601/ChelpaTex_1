@@ -18,6 +18,6 @@ public interface ManejadorUsuarioRol extends JpaRepository<UsuarioRol, UsuarioRo
 			+  "d.rol, "
 			+  "d.activo ) "
 			+ "FROM Rol d JOIN UsuarioRol cd ON d.idRol = cd.usuarioRolPK.idRol "
-			+ "WHERE cd.usuarioRolPK.idUsuario = :idUsuario" )
+			+ "WHERE cd.usuarioRolPK.idUsuario = :idUsuario and d.activo=1 and cd.activo=1 ")
 	public RolDTO rolUsuario (@Param ("idUsuario") String idUsuario);
 }

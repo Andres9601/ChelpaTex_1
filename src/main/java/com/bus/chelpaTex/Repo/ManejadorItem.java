@@ -19,7 +19,7 @@ public interface ManejadorItem extends JpaRepository<Item, Long> {
 			+  "d.precioUnidad, "
 			+  "d.cantidadMinima, "
 			+  "d.activo) "
-			+ "FROM Item d WHERE d.tipoItem = :tipoItem" )
+			+ "FROM Item d WHERE d.tipoItem = :tipoItem and d.activo=1 " )
 	public List<ItemDTO> consultarItemsTipo(String tipoItem);
 
 	
@@ -30,7 +30,7 @@ public interface ManejadorItem extends JpaRepository<Item, Long> {
 			+  "d.precioUnidad, "
 			+  "d.cantidadMinima, "
 			+  "d.activo) "
-			+ "FROM Item d WHERE d.idUsuario = :idUsuario AND d.tipoItem = :tipoItem" )
+			+ "FROM Item d WHERE d.idUsuario = :idUsuario AND d.tipoItem = :tipoItem and d.activo=1" )
 	public List<ItemDTO> consultarItemsUsuarioTipo(String idUsuario, String tipoItem);
 	
 	

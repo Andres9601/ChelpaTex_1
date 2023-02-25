@@ -29,7 +29,7 @@ public interface ManejadorDiseno extends JpaRepository<Diseno, Long> {
 			+ "d.totalEstimado, "
 			+ "d.precioSugeridoVenta, "
 			+ "d.activo ) "+
-		   "FROM Diseno d Where d.idUsuario = :idUsuario "
+		   "FROM Diseno d Where d.idUsuario = :idUsuario and d.activo=1"
 			)
 	public List<Diseno> disenosUsuario (@Param("idUsuario") String idUsuario);
 

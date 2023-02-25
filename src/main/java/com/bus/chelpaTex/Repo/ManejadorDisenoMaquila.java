@@ -20,6 +20,6 @@ public interface ManejadorDisenoMaquila extends JpaRepository<DisenoMaquila, Dis
 			+  "d.precioUnidad, "
 			+  "d.activo ) "
 			+ "FROM Maquila d JOIN DisenoMaquila cd ON d.idMaquila = cd.disenoMaquilaPK.idMaquila "
-			+ "WHERE cd.disenoMaquilaPK.idDiseno = :idDiseno" )
+			+ "WHERE cd.disenoMaquilaPK.idDiseno = :idDiseno and d.activo=1 and cd.activo=1 " )
 	public List<MaquilaDTO> maquilasDiseno (@Param ("idDiseno") Long idDiseno);
 }

@@ -22,7 +22,7 @@ public interface ManejadorMoldeItem extends JpaRepository<MoldeItem, MoldeItemPK
 			+  "d.cantidadMinima, "
 			+  "d.activo) "
 			+ "FROM Item d JOIN MoldeItem mi ON d.idItem = mi.moldeItemPK.idItem "
-			+ "WHERE mi.moldeItemPK.idMolde = :idMolde" )
+			+ "WHERE mi.moldeItemPK.idMolde = :idMolde and d.activo=1 and mi.activo=1 ")
 	public List<ItemDTO> ItemsMolde (@Param("idMolde") Long idMolde);
 	
 	@Query("Select NEW com.bus.chelpaTex.DTO.MoldeItemDTO( "

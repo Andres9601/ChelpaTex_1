@@ -24,7 +24,7 @@ public interface ManejadorDisenoCif extends JpaRepository<DisenoCif ,DisenoCifPK
 			+  "d.porcentajeCif ,"
 			+  "d.activo ) "
 			+ "FROM Cif d JOIN DisenoCif cd ON d.idCif = cd.disenoCifPK.idCif "
-			+ "WHERE cd.disenoCifPK.idDiseno = :idDiseno" )
+			+ "WHERE cd.disenoCifPK.idDiseno = :idDiseno and d.activo=1 and cd.activo=1 " )
 	public List<CifDTO> cifsDiseno (@Param ("idDiseno") Long idDiseno);
 	
 }

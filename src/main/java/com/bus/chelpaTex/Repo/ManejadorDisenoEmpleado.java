@@ -23,7 +23,7 @@ public interface ManejadorDisenoEmpleado extends JpaRepository<DisenoEmpleado, D
 			+  "d.productividad, "
 			+  "d.activo ) "
 			+ "FROM Empleado d JOIN DisenoEmpleado cd ON d.numeroIdentificacion = cd.disenoEmpleadoPK.numeroIdentificacion "
-			+ "WHERE cd.disenoEmpleadoPK.idDiseno = :idDiseno" )
+			+ "WHERE cd.disenoEmpleadoPK.idDiseno = :idDiseno and d.activo=1 and cd.activo=1 " )
 	public List<EmpleadoDTO> empleadosDiseno (@Param ("idDiseno") Long idDiseno);
 	
 }

@@ -18,7 +18,7 @@ public interface ManejadorMaquila extends JpaRepository<Maquila, Long> {
 			+  "d.tipoMaquila, "
 			+  "d.precioUnidad, "
 			+  "d.activo ) "
-			+ "FROM Maquila d WHERE d.tipoMaquila = :tipoMaquila " )
+			+ "FROM Maquila d WHERE d.tipoMaquila = :tipoMaquila and d.activo=1 " )
 	public List<MaquilaDTO> consultarMaquilasTipo(String tipoMaquila);
 
 }

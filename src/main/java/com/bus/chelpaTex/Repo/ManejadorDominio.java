@@ -19,7 +19,7 @@ public interface ManejadorDominio extends JpaRepository<Dominio, Long> {
 			+  "d.nombre, "
 			+  "d.activo) "
 			+ "FROM Dominio d "
-			+ "WHERE d.tipoDominio = 'DOM_TIPO_ITEM' " )
+			+ "WHERE d.tipoDominio = 'DOM_TIPO_ITEM' and d.activo=1 " )
 	public List<DominioDTO> tiposItem();
 	
 	@Query("Select NEW com.bus.chelpaTex.DTO.DominioDTO( "
@@ -28,7 +28,7 @@ public interface ManejadorDominio extends JpaRepository<Dominio, Long> {
 			+  "d.nombre, "
 			+  "d.activo) "
 			+ "FROM Dominio d "
-			+ "WHERE d.tipoDominio = 'DOM_TIPO_MAQUILA' " )
+			+ "WHERE d.tipoDominio = 'DOM_TIPO_MAQUILA' and d.activo=1 " )
 	public List<DominioDTO> tiposMaquila();
 
 }

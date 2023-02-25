@@ -18,7 +18,7 @@ public interface ManejadorColeccion extends JpaRepository<Coleccion, Long> {
 			+ "c.nombre, "
 			+ "c.fechaCreacion, "
 			+ "c.activo ) "+
-		   "FROM Coleccion c Where c.idUsuario = :idUsuario "
+		   "FROM Coleccion c Where c.idUsuario = :idUsuario AND c.activo = 1 "
 			)
 	public List<Coleccion> coleccionesUsuario (@Param("idUsuario") String idUsuario);
 	

@@ -40,13 +40,13 @@ public class ItemDTO implements Serializable{
 	
 	private String uso;
 	
-	private String segmento_categoria;
+	private String segmentoCategoria;
 	
 	private String base;
 	
 	private String ligamento;
 	
-	private String codigo_acabado;
+	private String codigoAcabado;
 	
 	private BigDecimal anchoTotal;
 	
@@ -86,11 +86,11 @@ public class ItemDTO implements Serializable{
 	
 	private String normaCertificacion;
 	
-	private String anchoUtil;
+	private BigDecimal anchoUtil;
 	
-	private String longitud;
+	private BigDecimal longitud;
 	
-	private String calibreGrosor; 
+	private BigDecimal calibreGrosor; 
 	
 	private String aseguramiento; 
 	
@@ -108,17 +108,24 @@ public class ItemDTO implements Serializable{
 			
 	private Boolean activo;
 
+	
+	
 	public ItemDTO(Long idItem, String tipoItem, String idTrazabilidad, BigDecimal precioUnidad,
-			BigDecimal cantidadMinima, Boolean activo) {
+			BigDecimal cantidadMinima, String nombre, String referencia, String segmentoCategoria, Boolean activo) {
 		super();
 		this.idItem = idItem;
 		this.tipoItem = tipoItem;
 		this.idTrazabilidad = idTrazabilidad;
 		this.precioUnidad = precioUnidad;
 		this.cantidadMinima = cantidadMinima;
+		this.nombre = nombre;
+		this.referencia = referencia;
+		this.segmentoCategoria = segmentoCategoria;
 		this.activo = activo;
 	}
 
+
+	
 	
 	
 }

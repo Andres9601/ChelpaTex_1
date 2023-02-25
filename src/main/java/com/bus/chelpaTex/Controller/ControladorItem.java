@@ -87,4 +87,18 @@ public class ControladorItem {
 		
 	}
 	
+	
+	@GetMapping(path= "/consultarDetallesItem", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> consultarDetallesItem(@RequestParam(value = "idItem") Long idItem
+			)throws URISyntaxException{
+		
+		try { 
+			return ResponseEntity.ok(servicioItem.consultarDetallesItem(idItem));
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);
+		}
+		
+	}
+	
 }

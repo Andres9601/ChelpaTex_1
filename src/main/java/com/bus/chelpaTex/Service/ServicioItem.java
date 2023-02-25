@@ -21,7 +21,10 @@ public interface ServicioItem {
 	@Qualifier("ServicioItemImpl")
 	ItemDTO crear(ItemDTO itemDTO) throws  Exception;
 
-	@Qualifier
+	@Qualifier("ServicioItemImpl")
 	List<ItemDTO> consultarItemsUsuario(String idUsuario, String tipoItem);
+	
+	@Qualifier("ServicioItemImpl")
+	ItemDTO consultarDetallesItem(Long idItem);
 
 }

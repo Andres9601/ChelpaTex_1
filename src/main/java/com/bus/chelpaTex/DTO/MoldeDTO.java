@@ -53,5 +53,42 @@ private Long idMolde;
 	private String rutaArchivo;
 	
 	private Boolean activo;
+
+	public MoldeDTO(Long idMolde, String nombre, BigDecimal precio, String tipoPrenda, String tipoModa, String objetivo,
+			String tipoAcabado, String rutaArchivo, Boolean activo) {
+		super();
+		this.idMolde = idMolde;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.tipoPrenda = tipoPrenda;
+		this.tipoModa = tipoModa;
+		this.objetivo = objetivo;
+		this.tipoAcabado = tipoAcabado;
+		this.rutaArchivo = rutaArchivo;
+		this.activo = activo;
+	}
+
+	public MoldeDTO(String nombre, Date fechaCreacion, BigDecimal precio, String tipoPrenda, String tipoModa,
+			String objetivo, String tipoAcabado, Long anchoTela, String consumoTotal, String tipoProduccion,
+			String tipoCascada, String caracteristicas, String rutaArchivo, Boolean activo) {
+		super();
+		this.nombre = nombre;
+		this.fechaCreacion = fechaCreacion;
+		this.precio = precio;
+		this.tipoPrenda = tipoPrenda;
+		this.tipoModa = tipoModa;
+		this.objetivo = objetivo;
+		this.tipoAcabado = tipoAcabado;
+		this.anchoTela = anchoTela;
+		this.consumoTotal = consumoTotal;
+		this.tipoProduccion = tipoProduccion;
+		this.tipoCascada = tipoCascada;
+		this.caracteristicas = caracteristicas;
+		this.rutaArchivo = rutaArchivo;
+		this.activo = activo;
+	}
+	
+	
+	
 	
 }

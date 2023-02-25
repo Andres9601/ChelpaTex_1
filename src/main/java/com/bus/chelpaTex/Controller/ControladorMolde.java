@@ -47,4 +47,33 @@ public class ControladorMolde {
     	}
 	}
 	
+	@GetMapping(path= "/consultarMoldesUsuario", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> consultarMoldesUsuario(@RequestParam(value = "idUsuario") String idUsuario
+			)throws URISyntaxException{
+		
+		try { 
+			return ResponseEntity.ok(servicioMolde.consultarMoldesUsuario(idUsuario));
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);
+		}
+		
+	}
+	
+	
+	@GetMapping(path= "/consultarDetallesMolde", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> consultarDetallesMolde(@RequestParam(value = "idMolde") Long idMolde
+			)throws URISyntaxException{
+		
+		try { 
+			return ResponseEntity.ok(servicioMolde.consultarDetallesMolde(idMolde));
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);
+		}
+		
+	}
+	
+	
+	
 }

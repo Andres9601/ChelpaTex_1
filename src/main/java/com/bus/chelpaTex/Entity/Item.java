@@ -162,18 +162,23 @@ import lombok.AllArgsConstructor;
 		
 		@Column(name = "activo")
 		private Boolean activo;
+		
+		
 
 		public Item(Long idItem, String tipoItem, String idTrazabilidad, BigDecimal precioUnidad,
-				BigDecimal cantidadMinima, Boolean activo) {
+				BigDecimal cantidadMinima, String nombre, String referencia, String segmentoCategoria, Boolean activo) {
 			super();
 			this.idItem = idItem;
 			this.tipoItem = tipoItem;
 			this.idTrazabilidad = idTrazabilidad;
 			this.precioUnidad = precioUnidad;
 			this.cantidadMinima = cantidadMinima;
+			this.nombre = nombre;
+			this.referencia = referencia;
+			this.segmentoCategoria = segmentoCategoria;
 			this.activo = activo;
 		}
-		
+
 		
 
 	}

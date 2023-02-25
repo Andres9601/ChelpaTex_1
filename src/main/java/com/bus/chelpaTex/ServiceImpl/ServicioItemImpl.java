@@ -92,6 +92,18 @@ public class ServicioItemImpl implements ServicioItem{
 			throw new InvalidParameterException("No se pueden consultar los items, revisar parametro");
 		}
 	}
+
+	@Override
+	public ItemDTO consultarDetallesItem(Long idItem) {
+		try {
+			ItemDTO item = manejadorItem.consultarDetallesItem(idItem);
+			return item;
+		}
+		catch(InvalidParameterException e) {
+		logger.info(e.getCause() + e.getMessage());
+		throw new InvalidParameterException("No se pueden consultar el item, revisar parametro");
+		}
+	}
 		
 	
 

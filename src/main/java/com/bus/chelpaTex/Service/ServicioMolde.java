@@ -24,4 +24,10 @@ public interface ServicioMolde {
 	@Qualifier("ServicioMoldeImpl")
 	public MoldeDTO crearDisenoConMolde(MoldeDTO molde) throws Exception;
 	
+	@Qualifier("ServicioMoldeImpl")
+	public List<MoldeDTO> consultarMoldesUsuario(String idUsuario);
+
+	@Qualifier("ServicioMoldeImpl")
+	public MoldeDTO consultarDetallesMolde(Long idMolde);
+
 }

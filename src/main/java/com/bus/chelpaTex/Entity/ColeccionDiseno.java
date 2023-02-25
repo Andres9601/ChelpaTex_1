@@ -1,6 +1,5 @@
 package com.bus.chelpaTex.Entity;
 
-import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -18,9 +17,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @Entity
 @Table(name = "COLECCION_DISENO")
-public class ColeccionDiseno implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class ColeccionDiseno {
 	
 	
 	@EmbeddedId

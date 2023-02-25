@@ -1,8 +1,6 @@
 package com.bus.chelpaTex.Entity;
 
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,9 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name = "USUARIO")
-public class Usuario implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Usuario {
 	
 	public static final String ENTIDAD_USUARIO_ID_USUARIO = "idUsuario";
 	public static final String ENTIDAD_USUARIO_EMAIL = "email";

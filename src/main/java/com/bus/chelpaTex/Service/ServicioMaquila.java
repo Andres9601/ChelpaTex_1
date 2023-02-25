@@ -12,5 +12,11 @@ public interface ServicioMaquila {
 	
 	@Qualifier("ServicioMaquilaImpl")
 	public List<MaquilaDTO> consultar();
+	
+	@Qualifier("ServicioMaquilaImpl")
+	MaquilaDTO crear(MaquilaDTO maquilaDTO) throws  Exception;
+
+	@Qualifier("ServicioMaquilaImpl")
+	List<MaquilaDTO> consultarMaquilasTipo(String tipoMaquila);
 
 }

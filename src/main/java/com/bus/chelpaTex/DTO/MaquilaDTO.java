@@ -23,6 +23,41 @@ public class MaquilaDTO implements Serializable{
 	private String tipoMaquila;
 	
 	private BigDecimal precioUnidad;
-				
+	
+	private String diseño;
+	
+	private String ubicacion;
+	
+	private String tamaño;
+	
+	private String tipoMaterial;
+	
+	private String estadoPieza;
+	
+	private Long cantidadColores;
+	
+	private BigDecimal metrosImpresion;
+	
+	private String tallaje;
+	
+	private Long numeroImpresiones;
+	
+	private String tipoPrenda;
+	
+	private String maquinasEspeciales;
+	
+	private BigDecimal cantidadPorPrenda;	
+	
+	private String idUsuario;	
+	
 	private Boolean activo;
+	
+	public MaquilaDTO(Long idMaquila, String tipoMaquila, BigDecimal precioUnidad, Boolean activo) {
+		super();
+		this.idMaquila = idMaquila;
+		this.tipoMaquila = tipoMaquila;
+		this.precioUnidad = precioUnidad;
+		this.activo = activo;
+	}
+	
 }

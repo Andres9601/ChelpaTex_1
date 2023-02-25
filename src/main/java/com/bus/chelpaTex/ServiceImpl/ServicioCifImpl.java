@@ -26,9 +26,11 @@ public class ServicioCifImpl implements ServicioCif{
 			Cif cif = new Cif();
 			cif.setIdCif(cifDTO.getIdCif());
 			cif.setTipoCif(cifDTO.getTipoCif());
+			cif.setNombre(cifDTO.getNombre());
 			cif.setValor(cifDTO.getValor());
 			cif.setPeriodo(cifDTO.getPeriodo());
 			cif.setProductividadPeriodo(cifDTO.getProductividadPeriodo());
+			cif.setPorcentajeCif(cifDTO.getPorcentajeCif());
 			cif.setActivo(true);
 			manejadorCif.save(cif);
 			return cifDTO;

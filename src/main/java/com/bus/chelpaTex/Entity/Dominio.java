@@ -1,7 +1,5 @@
 package com.bus.chelpaTex.Entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,17 +18,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "DETALLE_MAQUILA")
-public class DetalleMaquila implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+@Table(name = "DOMINIO")
+public class Dominio {
 	
 	@Id
-	@GeneratedValue(generator = "SEQ_MAQUILA")
-    @GenericGenerator(name = "SEQ_MAQUILA", strategy = "increment")
-	@Column(name = "id_maquila")
-	private Long idMaquila;
+	@GeneratedValue(generator = "SEQ_DOMINIO")
+    @GenericGenerator(name = "SEQ_DOMINIO", strategy = "increment")
+	@Column(name = "id_dominio")
+	private Long idDominio;
+	
+	@Column(name = "tipo_dominio")
+	private String tipoDominio;
+	
+	@Column(name = "nombre")
+	private String nombre;
+	
+	@Column(name = "activo")
+	private Boolean activo;
+
+	
+
 }

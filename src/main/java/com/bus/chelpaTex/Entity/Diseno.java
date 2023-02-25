@@ -1,5 +1,4 @@
 package com.bus.chelpaTex.Entity;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -22,13 +21,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @Entity
 @Table(name = "DISENO")
-public class Diseno implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+public class Diseno {
 	
 	@Id
 	@GeneratedValue(generator = "SEQ_DISENO")

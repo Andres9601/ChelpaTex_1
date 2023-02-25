@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bus.chelpaTex.DTO.CantidadItemDTO;
+import com.bus.chelpaTex.DTO.ItemConCamposDTO;
 import com.bus.chelpaTex.DTO.ItemDTO;
 import com.bus.chelpaTex.Service.ServicioItem;
 import com.bus.chelpaTex.Service.ServicioMoldeItem;
@@ -99,6 +100,15 @@ public class ControladorItem {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);
 		}
 		
+	}
+	
+	@PostMapping(path = "/crearItemConCampos", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> crearItemConCampos(@RequestBody ItemConCamposDTO itemConCamposDTO )throws Exception {
+    	try {
+    		return ResponseEntity.ok(servicioItem.crearItemConCampos(itemConCamposDTO));
+    	}catch(Exception e){
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se puede guardar el item ");
+    	}
 	}
 	
 }

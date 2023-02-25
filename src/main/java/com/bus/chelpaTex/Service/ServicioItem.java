@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.bus.chelpaTex.DTO.ActualizarDisenoDTO;
+import com.bus.chelpaTex.DTO.ItemConCamposDTO;
 import com.bus.chelpaTex.DTO.ItemDTO;
 
 @Service
@@ -25,6 +26,9 @@ public interface ServicioItem {
 	List<ItemDTO> consultarItemsUsuario(String idUsuario, String tipoItem);
 	
 	@Qualifier("ServicioItemImpl")
-	ItemDTO consultarDetallesItem(Long idItem);
+	ItemConCamposDTO consultarDetallesItem(Long idItem);
 
+	@Qualifier("ServicioItemImpl")
+	ItemConCamposDTO crearItemConCampos(ItemConCamposDTO itemConCamposDTO) throws  Exception;
+	
 }

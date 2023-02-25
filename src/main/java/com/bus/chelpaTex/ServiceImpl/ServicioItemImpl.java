@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bus.chelpaTex.DTO.ActualizarDisenoDTO;
+import com.bus.chelpaTex.DTO.CampoAdicionalDTO;
+import com.bus.chelpaTex.DTO.ItemConCamposDTO;
 import com.bus.chelpaTex.DTO.ItemDTO;
 import com.bus.chelpaTex.DTO.MoldeItemDTO;
 import com.bus.chelpaTex.Entity.Item;
@@ -16,6 +18,7 @@ import com.bus.chelpaTex.Entity.Molde;
 import com.bus.chelpaTex.Repo.ManejadorItem;
 import com.bus.chelpaTex.Repo.ManejadorMolde;
 import com.bus.chelpaTex.Repo.ManejadorMoldeItem;
+import com.bus.chelpaTex.Service.ServicioCampoAdicional;
 import com.bus.chelpaTex.Service.ServicioItem;
 import com.bus.chelpaTex.Service.Utils.ServiceUtil;
 
@@ -35,6 +38,9 @@ public class ServicioItemImpl implements ServicioItem{
 	
 	@Autowired
 	ServiceUtil serviceUtil;
+	
+	@Autowired
+	ServicioCampoAdicional servicioCampoAdicional;
 	
 	@Override
 	public BigDecimal calcularValorTotalUnidades(ActualizarDisenoDTO actualizarDisenoDTO) {
@@ -72,7 +78,8 @@ public class ServicioItemImpl implements ServicioItem{
 		
 		item = manejadorItem.save(item);
 		item.setIdTrazabilidad("i-" + item.getIdItem());
-		manejadorItem.save(item);
+		item = manejadorItem.save(item);
+		itemDTO.setIdItem(item.getIdItem());
 		return itemDTO;
 		}
 		catch(Exception e) {
@@ -94,15 +101,38 @@ public class ServicioItemImpl implements ServicioItem{
 	}
 
 	@Override
-	public ItemDTO consultarDetallesItem(Long idItem) {
+	public ItemConCamposDTO consultarDetallesItem(Long idItem) {
 		try {
-			ItemDTO item = manejadorItem.consultarDetallesItem(idItem);
-			return item;
+			ItemConCamposDTO itemConCamposDTO = new ItemConCamposDTO();
+			ItemDTO itemDTO = manejadorItem.consultarDetallesItem(idItem);
+			itemConCamposDTO.setItem(itemDTO);
+			List<CampoAdicionalDTO> camposAdicionalesDTO = servicioCampoAdicional.consultarCamposAdicionalesItem(idItem);
+			itemConCamposDTO.setCamposAdicionales(camposAdicionalesDTO);
+			return itemConCamposDTO;
 		}
 		catch(InvalidParameterException e) {
 		logger.info(e.getCause() + e.getMessage());
 		throw new InvalidParameterException("No se pueden consultar el item, revisar parametro");
 		}
+	}
+
+	@Override
+	public ItemConCamposDTO crearItemConCampos(ItemConCamposDTO itemConCamposDTO) throws Exception {
+	try {
+		ItemDTO itemDTO = itemConCamposDTO.getItem();
+		itemDTO = this.crear(itemDTO);
+		Long idItem = itemDTO.getIdItem();
+		List<CampoAdicionalDTO> camposAdicionalesDTO = itemConCamposDTO.getCamposAdicionales();
+		for(CampoAdicionalDTO campoAdicionalDTO: camposAdicionalesDTO) {
+			campoAdicionalDTO.setIdItem(idItem);
+			servicioCampoAdicional.crear(campoAdicionalDTO);
+		}
+		return itemConCamposDTO;
+	}
+	catch (Exception e) {
+		logger.info(e.getCause() + e.getMessage());
+		throw new InvalidParameterException("No se pudo completar la creacion, Revisar Parametros");
+	}
 	}
 		
 	

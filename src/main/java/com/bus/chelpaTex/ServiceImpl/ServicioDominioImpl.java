@@ -46,4 +46,29 @@ public class ServicioDominioImpl implements ServicioDominio{
 		}
 	}
 
+	@Override
+	public List<DominioDTO> consultarDominiosTipo(String tipoDominio) throws Exception {
+		try {
+			List<DominioDTO> dominiosDTO = manejadorDominio.consultarDominiosTipo(tipoDominio);
+			return dominiosDTO;
+		}
+		catch(Exception e) {
+			logger.info(e.getCause() + e.getMessage());
+			throw new Exception("No se puede consultar la tabla Dominio");
+		}
+	}
+
+	@Override
+	public List<DominioDTO> consultarCamposTipoItem(String tipoItem) throws Exception {
+		try {
+			String tipoDominio = "DOM_CAMPO_" + tipoItem;
+			List<DominioDTO> dominiosDTO = manejadorDominio.consultarDominiosTipo(tipoDominio);
+			return dominiosDTO;
+		}
+		catch(Exception e) {
+			logger.info(e.getCause() + e.getMessage());
+			throw new Exception("No se puede consultar la tabla Dominio");
+		}
+	}
+
 }

@@ -17,4 +17,10 @@ public interface ServicioDominio {
 	@Qualifier("ServicioDominioImpl")
 	public List<DominioDTO> consultarTiposMaquila() throws Exception;
 
+	@Qualifier("ServicioDominioImpl")
+	public List<DominioDTO>  consultarDominiosTipo(String tipoDominio) throws Exception;
+
+	@Qualifier("ServicioDominioImpl")
+	public List<DominioDTO> consultarCamposTipoItem(String tipoItem) throws Exception;
+
 }

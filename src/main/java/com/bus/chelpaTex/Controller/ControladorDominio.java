@@ -57,4 +57,16 @@ public class ControladorDominio {
 
 	}
 	
+	@GetMapping(path= "/consultarCamposTipoItem", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> consultarCamposTipoItem(@Param("tipoItem") String tipoItem) throws URISyntaxException{
+		
+		try { 
+			return ResponseEntity.ok(servicioDominio.consultarCamposTipoItem(tipoItem));
+			
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No se puede responder a tu solicitud en este momento "+e);
+		}
+
+	}
+	
 }

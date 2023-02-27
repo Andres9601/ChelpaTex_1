@@ -1,6 +1,6 @@
 package com.bus.chelpaTex.Utils;
 
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
+/*import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -24,10 +24,27 @@ public class WebConfig implements WebMvcConfigurer {
 		bean.setOrder(0);
 		
 		return bean;
-	}
+	}*/
 		
 		
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.apache.catalina.filters.CorsFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 
+@Configuration
+public class WebMvcConfig implements WebMvcConfigurer {
+   @Bean
+   public FilterRegistrationBean corsFilterRegistration() {
+      FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+      registrationBean.setFilter(new CorsFilter());
+      registrationBean.setOrder(0);
+      return registrationBean;
+   }
 }
+
+
+
 
 

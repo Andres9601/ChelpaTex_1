@@ -30,10 +30,10 @@ public class SwaggerConfig {
 		
 		private ApiInfo getApiInfo() {
 			return new ApiInfo(
-					"Order Service API",
-					"Order Service API Description",
+					"CHELPATEX",
+					"CHELPATEX DESCRIPTION",
 					"1.0",
-					"http://codmind.com/terms",
+					"http://chelpatex.com",
 					new Contact("ChelpaTex", "https://chelpatex.com", "https://chelpatex.com"),
 					"LICENSE",
 					"LICENSE URL",

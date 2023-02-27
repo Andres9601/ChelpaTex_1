@@ -36,8 +36,8 @@ import org.springframework.context.annotation.Bean;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
    @Bean
-   public FilterRegistrationBean corsFilterRegistration() {
-      FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+   public FilterRegistrationBean<CorsFilter> corsFilterRegistration() {
+      FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<CorsFilter>();
       registrationBean.setFilter(new CorsFilter());
       registrationBean.setOrder(0);
       return registrationBean;

@@ -27,22 +27,32 @@ public class WebConfig implements WebMvcConfigurer {
 	}*/
 		
 		
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.apache.catalina.filters.CorsFilter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
+import javax.servlet.*;
+import javax.servlet.http.HttpServletResponse;
 
-@Configuration
-public class WebMvcConfig implements WebMvcConfigurer {
-   @Bean
-   public FilterRegistrationBean<CorsFilter> corsFilterRegistration() {
-      FilterRegistrationBean<CorsFilter> registrationBean = new FilterRegistrationBean<CorsFilter>();
-      registrationBean.setFilter(new CorsFilter());
-      registrationBean.setOrder(0);
-      return registrationBean;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+
+@Component
+public class CorsFilter implements Filter {
+   @Override
+   public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+      HttpServletResponse response = (HttpServletResponse) res;
+      response.setHeader("Access-Control-Allow-Origin", "*");
+      response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+      response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+      chain.doFilter(req, res);
    }
+
+   @Override
+   public void init(FilterConfig filterConfig) throws ServletException {}
+
+   @Override
+   public void destroy() {}
 }
+
 
 
 

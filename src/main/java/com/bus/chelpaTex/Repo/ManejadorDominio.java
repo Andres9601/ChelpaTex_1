@@ -36,7 +36,8 @@ public interface ManejadorDominio extends JpaRepository<Dominio, Long> {
 			+  "d.idDominio, "
 			+  "d.tipoDominio, "
 			+  "d.nombre, "
-			+  "d.activo) "
+			+  "d.activo, "
+			+  "d.tipoDato ) "
 			+ "FROM Dominio d "
 			+ "WHERE d.tipoDominio =:tipoDominio and d.activo=1 " )
 	public List<DominioDTO> consultarDominiosTipo(String tipoDominio);

@@ -25,4 +25,17 @@ public class DominioDTO  implements Serializable{
 	private String nombre;
 	
 	private Boolean activo;
+	
+	private String tipoDato;
+
+	public DominioDTO(Long idDominio, String tipoDominio, String nombre, Boolean activo) {
+		super();
+		this.idDominio = idDominio;
+		this.tipoDominio = tipoDominio;
+		this.nombre = nombre;
+		this.activo = activo;
+	}
+	
+	
+	
 }

@@ -35,6 +35,19 @@ public class Dominio {
 	
 	@Column(name = "activo")
 	private Boolean activo;
+	
+	@Column(name = "tipo_dato")
+	private String tipoDato;
+
+	public Dominio(Long idDominio, String tipoDominio, String nombre, Boolean activo) {
+		super();
+		this.idDominio = idDominio;
+		this.tipoDominio = tipoDominio;
+		this.nombre = nombre;
+		this.activo = activo;
+	}
+	
+	
 
 	
 

@@ -57,6 +57,7 @@ public interface ManejadorMoldeItem extends JpaRepository<MoldeItem, MoldeItemPK
 			+  "d.numeroLigas, "
 			+  "d.textura, "
 			+  "d.encogimiento, "
+			+  "d.elongacion, "
 			+  "d.unidad, "
 			+  "d.idUsuario, "
 			+  "d.activo) "

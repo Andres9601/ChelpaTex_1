@@ -120,6 +120,7 @@ public class ServicioItemImpl implements ServicioItem{
 	public ItemConCamposDTO crearItemConCampos(ItemConCamposDTO itemConCamposDTO) throws Exception {
 	try {
 		ItemDTO itemDTO = itemConCamposDTO.getItem();
+		itemDTO.setActivo(true);
 		itemDTO = this.crear(itemDTO);
 		Long idItem = itemDTO.getIdItem();
 		List<CampoAdicionalDTO> camposAdicionalesDTO = itemConCamposDTO.getCamposAdicionales();

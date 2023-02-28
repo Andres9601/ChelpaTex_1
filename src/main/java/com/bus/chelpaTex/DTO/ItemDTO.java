@@ -102,6 +102,8 @@ public class ItemDTO implements Serializable{
 	
 	private String encogimiento;
 	
+	private String elongacion;
+	
 	private String unidad;	
 	
 	private String idUsuario;

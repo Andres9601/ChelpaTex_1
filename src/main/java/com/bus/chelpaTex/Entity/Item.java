@@ -154,6 +154,9 @@ import lombok.AllArgsConstructor;
 		@Column(name = "encogimiento")
 		private String encogimiento;
 		
+		@Column(name = "elongacion")
+		private String elongacion;
+		
 		@Column(name = "unidad")
 		private String unidad;
 		

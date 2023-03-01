@@ -80,6 +80,8 @@ public class ServicioDisenoCifImpl implements ServicioDisenoCif{
 			disenoCif.setActivo(true);
 			manejadorDisenoCif.save(disenoCif);
 		}
+		gastosCifDTO.setValorCifs(valorCifs);
+		gastosCifDTO.setValorGastos(valorGastos);
 		return gastosCifDTO;
 	}
 

@@ -51,11 +51,18 @@ public class ServicioItemImpl implements ServicioItem{
 		{
 			MoldeItemDTO moldeItem = manejadorMoldeItem.cantidadItemMolde(item.getIdItem(), actualizarDisenoDTO.getIdMolde());
 			BigDecimal cantidad = moldeItem.getCantidad();
-			valorItems= valorItems.add(item.getPrecioUnidad().multiply(cantidad));
+			valorItems= valorItems.add(item.getPrecioUnidad().multiply(cantidad));	
 		}
-		BigDecimal valorTotalUnidades = molde.getPrecio().add(valorItems.multiply(actualizarDisenoDTO.getUnidades()));
+		if(molde.getTipoMolde().equals("PROPIO")) {
+			molde.setPrecio(BigDecimal.valueOf(0));
+			BigDecimal valorTotalUnidades = molde.getPrecio().add(valorItems.multiply(actualizarDisenoDTO.getUnidades()));
 		
-		return valorTotalUnidades;
+			return valorTotalUnidades;
+		}else {
+			BigDecimal	valorTotalUnidades = molde.getPrecio().add(valorItems.multiply(actualizarDisenoDTO.getUnidades()));
+
+			return valorTotalUnidades;
+		}
 	}
 
 	@Override
@@ -120,6 +127,7 @@ public class ServicioItemImpl implements ServicioItem{
 	public ItemConCamposDTO crearItemConCampos(ItemConCamposDTO itemConCamposDTO) throws Exception {
 	try {
 		ItemDTO itemDTO = itemConCamposDTO.getItem();
+		itemDTO.setActivo(true);
 		itemDTO = this.crear(itemDTO);
 		Long idItem = itemDTO.getIdItem();
 		List<CampoAdicionalDTO> camposAdicionalesDTO = itemConCamposDTO.getCamposAdicionales();

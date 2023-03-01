@@ -255,7 +255,6 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		BigDecimal unidades = diseno.getUnidades();
 		if(!disenoDTO.getMargenGanancia().equals(BigDecimal.valueOf(100))) {
 		BigDecimal uno = BigDecimal.valueOf(1);
-		try {
 		BigDecimal precioSugeridoVentaTemp1 = (totalEstimado.divide(unidades,0, RoundingMode.HALF_UP));
 		BigDecimal precioSugeridoVentaTemp3	= margenGanancia.divide(BigDecimal.valueOf(100),4, RoundingMode.HALF_UP);
 		BigDecimal precioSugeridoVentaTemp4	= uno.subtract(precioSugeridoVentaTemp3);
@@ -265,11 +264,6 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		diseno.setPrecioSugeridoVenta(precioSugeridoVentaTemp2);
 		manejadorDiseno.save(diseno);
 		return disenoDTO;
-		}
-		catch(Exception e) {
-			logger.info(e.getCause()+ e.getMessage());
-			return null;
-		}
 		}
 		else {
 			throw new InvalidParameterException("El margen de ganancia debe ser diferente a 100");

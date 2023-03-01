@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.ServiceImpl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -253,12 +254,22 @@ public class ServicioDisenoImpl implements ServicioDiseno{
 		BigDecimal totalEstimado = diseno.getTotalEstimado();
 		BigDecimal unidades = diseno.getUnidades();
 		if(!disenoDTO.getMargenGanancia().equals(BigDecimal.valueOf(100))) {
-		BigDecimal precioSugeridoVenta = (totalEstimado.divide(unidades)).divide((BigDecimal.valueOf(1).subtract(margenGanancia.divide(BigDecimal.valueOf(100)))));
-		disenoDTO.setPrecioSugeridoVenta(precioSugeridoVenta);
+		BigDecimal uno = BigDecimal.valueOf(1);
+		try {
+		BigDecimal precioSugeridoVentaTemp1 = (totalEstimado.divide(unidades,0, RoundingMode.HALF_UP));
+		BigDecimal precioSugeridoVentaTemp3	= margenGanancia.divide(BigDecimal.valueOf(100),4, RoundingMode.HALF_UP);
+		BigDecimal precioSugeridoVentaTemp4	= uno.subtract(precioSugeridoVentaTemp3);
+		BigDecimal precioSugeridoVentaTemp2 = precioSugeridoVentaTemp1.divide(precioSugeridoVentaTemp4,0, RoundingMode.HALF_UP);
+		disenoDTO.setPrecioSugeridoVenta(precioSugeridoVentaTemp2);
 		diseno.setMargenGanancia(margenGanancia);
-		diseno.setPrecioSugeridoVenta(precioSugeridoVenta);
+		diseno.setPrecioSugeridoVenta(precioSugeridoVentaTemp2);
 		manejadorDiseno.save(diseno);
 		return disenoDTO;
+		}
+		catch(Exception e) {
+			logger.info(e.getCause()+ e.getMessage());
+			return null;
+		}
 		}
 		else {
 			throw new InvalidParameterException("El margen de ganancia debe ser diferente a 100");

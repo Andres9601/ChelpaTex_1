@@ -82,6 +82,7 @@ public class ServicioDisenoCifImpl implements ServicioDisenoCif{
 			manejadorDisenoCif.save(disenoCif);
 		}
 		gastosCifDTO.setValorCifs(valorCifs);
+		valorGastos = valorGastos.subtract(valorCifs);
 		gastosCifDTO.setValorGastos(valorGastos);
 		return gastosCifDTO;
 	}

@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.ServiceImpl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -52,7 +53,7 @@ public class ServicioDisenoEmpleadoImpl implements ServicioDisenoEmpleado{
 		for(EmpleadoDTO empleado: empleados) {
 			BigDecimal salario = empleado.getSalario();
 			BigDecimal productividad = empleado.getProductividad();
-			valorEmpleados = valorEmpleados.add(salario.divide(productividad));
+			valorEmpleados = valorEmpleados.add(salario.divide(productividad,0, RoundingMode.HALF_UP));
 			
 			Empleado empleadoTemp = new  Empleado();
 			empleadoTemp.setNumeroIdentificacion(empleado.getNumeroIdentificacion());

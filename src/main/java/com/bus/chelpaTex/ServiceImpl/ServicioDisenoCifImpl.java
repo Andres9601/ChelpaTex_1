@@ -1,6 +1,7 @@
 package com.bus.chelpaTex.ServiceImpl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.logging.Logger;
@@ -55,11 +56,11 @@ public class ServicioDisenoCifImpl implements ServicioDisenoCif{
 		for(CifDTO cif : cifs) {
 			BigDecimal valor = cif.getValor();
 			BigDecimal productividadPeriodo =cif.getProductividadPeriodo();
-			valorGastos = valorGastos.add(valor.divide(productividadPeriodo));
+			valorGastos = valorGastos.add(valor.divide(productividadPeriodo,0, RoundingMode.HALF_UP));
 			
 			BigDecimal porcentajeCif = cif.getPorcentajeCif();
 			BigDecimal valorCif = valor.multiply(porcentajeCif.divide(BigDecimal.valueOf(100)));
-			valorCifs = valorCifs.add(valorCif.divide(productividadPeriodo));
+			valorCifs = valorCifs.add(valorCif.divide(productividadPeriodo,0, RoundingMode.HALF_UP));
 			
 			Cif cifTemp = new Cif();
 			cifTemp.setIdCif(cif.getIdCif());

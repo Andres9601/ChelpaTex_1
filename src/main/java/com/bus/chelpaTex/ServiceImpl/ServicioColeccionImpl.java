@@ -52,7 +52,8 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 		List<ColeccionDTO> colecciones = new ArrayList<ColeccionDTO>();
 		for (Coleccion coleccion : coleccionesTemp) {
 			ColeccionDTO coleccionDto = new ColeccionDTO();
-			serviceUtil.copiarAtributos(coleccionDto, coleccion);
+			serviceUtil.copiarAtributos(coleccion, coleccionDto);
+			colecciones.add(coleccionDto);
 		}
 	return colecciones;
 	}
@@ -95,7 +96,13 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 		List<ColeccionDTO> coleccionesTemp = this.consultar(idUsuario);
 		for (ColeccionDTO coleccion : coleccionesTemp) {
 			MisColeccionesDTO coleccionTemp = new MisColeccionesDTO(); 
-			serviceUtil.copiarAtributos(coleccion, coleccionTemp);
+			coleccionTemp.setIdColeccion(coleccion.getIdColeccion());
+			coleccionTemp.setIdUsuario(coleccion.getIdUsuario());
+			coleccionTemp.setNombre(coleccion.getNombre());
+			coleccionTemp.setFechaCreacion(coleccion.getFechaCreacion());
+			coleccionTemp.setActivo(coleccion.getActivo());
+			coleccionTemp.setIniciales(coleccion.getIniciales());
+			coleccionTemp.setColor(coleccion.getColor());
 			Long numeroDisenos = (long) manejadorColeccionDiseno.disenosColeccion(coleccion.getIdColeccion()).size();
 			coleccionTemp.setNumeroDisenos(numeroDisenos);
 			colecciones.add(coleccionTemp);

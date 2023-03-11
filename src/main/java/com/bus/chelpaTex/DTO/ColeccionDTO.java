@@ -29,6 +29,9 @@ public class ColeccionDTO implements Serializable{
 	
 	private Boolean activo;
 	
+	private String iniciales;
+
+	private String color;
 	
 
 }

@@ -22,6 +22,7 @@ import com.bus.chelpaTex.Repo.ManejadorColeccionDiseno;
 import com.bus.chelpaTex.Repo.ManejadorDiseno;
 import com.bus.chelpaTex.Repo.ManejadorMolde;
 import com.bus.chelpaTex.Service.ServicioColeccion;
+import com.bus.chelpaTex.Service.Utils.ServiceUtil;
 
 @Service
 public class ServicioColeccionImpl implements ServicioColeccion {
@@ -42,17 +43,16 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 	@Autowired
 	ManejadorDiseno manejadorDiseno;
 	
+	@Autowired
+	ServiceUtil serviceUtil;
+	
 	@Override
-	public List<ColeccionDTO> consultar(String idUsuario) {
+	public List<ColeccionDTO> consultar(String idUsuario) throws IllegalAccessException {
 		List<Coleccion> coleccionesTemp = manejadorColeccion.coleccionesUsuario(idUsuario);
 		List<ColeccionDTO> colecciones = new ArrayList<ColeccionDTO>();
 		for (Coleccion coleccion : coleccionesTemp) {
 			ColeccionDTO coleccionDto = new ColeccionDTO();
-			coleccionDto.setIdColeccion(coleccion.getIdColeccion());
-			coleccionDto.setIdUsuario(coleccion.getIdUsuario());
-			coleccionDto.setNombre(coleccion.getNombre());
-			coleccionDto.setFechaCreacion(coleccion.getFechaCreacion());
-			coleccionDto.setActivo(coleccion.getActivo());
+			serviceUtil.copiarAtributos(coleccion, coleccionDto);
 			colecciones.add(coleccionDto);
 		}
 	return colecciones;
@@ -60,10 +60,9 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 
 
 	@Override
-	public ColeccionDTO crear(ColeccionDTO coleccionDTO) {
+	public ColeccionDTO crear(ColeccionDTO coleccionDTO) throws IllegalAccessException {
 		Coleccion coleccion = new Coleccion();
-		coleccion.setIdUsuario(coleccionDTO.getIdUsuario());
-		coleccion.setNombre(coleccionDTO.getNombre());
+		serviceUtil.copiarAtributos(coleccionDTO, coleccion);
 		coleccion.setFechaCreacion(new Date());
 		coleccion.setActivo(true);
 		manejadorColeccion.save(coleccion);
@@ -92,7 +91,7 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 
 
 	@Override
-	public List<MisColeccionesDTO> consultarColeccionesUsuario(String idUsuario) {
+	public List<MisColeccionesDTO> consultarColeccionesUsuario(String idUsuario) throws IllegalAccessException {
 		List<MisColeccionesDTO> colecciones = new ArrayList<MisColeccionesDTO>();
 		List<ColeccionDTO> coleccionesTemp = this.consultar(idUsuario);
 		for (ColeccionDTO coleccion : coleccionesTemp) {
@@ -102,6 +101,8 @@ public class ServicioColeccionImpl implements ServicioColeccion {
 			coleccionTemp.setNombre(coleccion.getNombre());
 			coleccionTemp.setFechaCreacion(coleccion.getFechaCreacion());
 			coleccionTemp.setActivo(coleccion.getActivo());
+			coleccionTemp.setIniciales(coleccion.getIniciales());
+			coleccionTemp.setColor(coleccion.getColor());
 			Long numeroDisenos = (long) manejadorColeccionDiseno.disenosColeccion(coleccion.getIdColeccion()).size();
 			coleccionTemp.setNumeroDisenos(numeroDisenos);
 			colecciones.add(coleccionTemp);

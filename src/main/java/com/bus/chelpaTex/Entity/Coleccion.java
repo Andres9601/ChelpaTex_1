@@ -42,6 +42,12 @@ public class Coleccion {
 	@Column(name = "activo")
 	private Boolean activo;
 	
+	@Column(name = "iniciales")
+	private String iniciales;
+	
+	@Column(name = "color")
+	private String color;
+	
 	
 
 }

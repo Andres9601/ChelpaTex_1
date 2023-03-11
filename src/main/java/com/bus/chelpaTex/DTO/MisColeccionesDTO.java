@@ -28,6 +28,10 @@ public class MisColeccionesDTO implements Serializable{
 	
 	private Boolean activo;
 	
+	private String iniciales;
+
+	private String color;
+	
 	private Long numeroDisenos;
 	
 	

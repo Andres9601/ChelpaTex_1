@@ -26,11 +26,13 @@ public interface ManejadorColeccionDiseno extends JpaRepository<ColeccionDiseno,
 	public List<DisenoDTO> disenosColeccion (@Param ("idColeccion") Long idColeccion);
 			
 	@Query("Select NEW com.bus.chelpaTex.DTO.ColeccionDTO( "
-			+  "d.idColeccion, "
-			+  "d.idUsuario, "
-			+  "d.nombre, "
-			+  "d.fechaCreacion, "
-			+  "d.activo ) "
+			+ "d.idColeccion, "
+			+ "d.idUsuario, "
+			+ "d.nombre, "
+			+ "d.fechaCreacion, "
+			+ "d.activo,"
+			+ "d.iniciales, "
+			+ "d.color) "
 			+ "FROM Coleccion d JOIN ColeccionDiseno cd ON d.idColeccion = cd.coleccionDisenoPK.idColeccion "
 			+ "WHERE cd.coleccionDisenoPK.idDiseno = :idDiseno and d.activo=1 and cd.activo=1 " )
 	public List<ColeccionDTO> coleccionesDiseno (@Param ("idDiseno") Long idDiseno);

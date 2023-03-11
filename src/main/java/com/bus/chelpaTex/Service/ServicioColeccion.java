@@ -14,16 +14,16 @@ import com.bus.chelpaTex.DTO.MisColeccionesDTO;
 public interface ServicioColeccion {
 	
 	@Qualifier("ServicioColeccionImpl")
-	public List<ColeccionDTO> consultar (String idUsuario);
+	public List<ColeccionDTO> consultar (String idUsuario) throws IllegalAccessException;
 	
 	@Qualifier("ServicioColeccionImpl")
-	public List<MisColeccionesDTO> consultarColeccionesUsuario (String idUsuario);
+	public List<MisColeccionesDTO> consultarColeccionesUsuario (String idUsuario) throws IllegalAccessException;
 	
 	@Qualifier("ServicioColeccionImpl")
 	public ColeccionCompletaDTO consultarColeccionCompleta (Long idColeccion);
 	
 	@Qualifier("ServicioColeccionImpl")
-	public ColeccionDTO crear (ColeccionDTO coleccionDTO);
+	public ColeccionDTO crear (ColeccionDTO coleccionDTO) throws IllegalAccessException;
 	
 	@Qualifier("ServicioColeccionImpl")
 	public ColeccionDTO nuevaColeccion (ColeccionDTO coleccionDTO) throws Exception;

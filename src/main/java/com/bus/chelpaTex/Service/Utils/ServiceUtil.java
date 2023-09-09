@@ -9,6 +9,4 @@ public interface ServiceUtil {
 
 	@Qualifier("ServiceUtilImpl")
 	public void copiarAtributos(Object origen, Object Destino) throws IllegalAccessException;
-
-	
 }

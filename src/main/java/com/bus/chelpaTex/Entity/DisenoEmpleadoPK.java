@@ -18,22 +18,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class DisenoEmpleadoPK implements Serializable{
-	
-	 	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
-		@Basic(optional = false)
-	    @Column(name = "numero_identificacion")
+	@Basic(optional = false)
+    @Column(name = "numero_identificacion")
+    private Long numeroIdentificacion;
 
-	    private Long numeroIdentificacion;
-
-	    @Basic(optional = false)
-	    @Column(name = "id_diseno")
-
-	    private Long idDiseno;
-	
-	
-
+    @Basic(optional = false)
+    @Column(name = "id_diseno")
+    private Long idDiseno;
 }

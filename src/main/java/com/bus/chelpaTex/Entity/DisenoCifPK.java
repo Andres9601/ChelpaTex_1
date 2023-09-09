@@ -19,21 +19,13 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 public class DisenoCifPK implements Serializable{
 	
-	 	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-		@Basic(optional = false)
-	    @Column(name = "id_cif")
+	@Basic(optional = false)
+	@Column(name = "id_cif")
+	private Long idCif;
 
-	    private Long idCif;
-
-	    @Basic(optional = false)
-	    @Column(name = "id_diseno")
-
-	    private Long idDiseno;
-	
-	
-
+    @Basic(optional = false)
+    @Column(name = "id_diseno")
+    private Long idDiseno;
 }

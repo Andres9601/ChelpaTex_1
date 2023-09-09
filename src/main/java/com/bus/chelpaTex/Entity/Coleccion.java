@@ -47,7 +47,5 @@ public class Coleccion {
 	
 	@Column(name = "color")
 	private String color;
-	
-	
 
 }

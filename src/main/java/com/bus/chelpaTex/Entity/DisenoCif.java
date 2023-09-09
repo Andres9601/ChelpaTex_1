@@ -26,4 +26,3 @@ public class DisenoCif {
 	@Column(name = "activo")
 	private Boolean activo;
 }
-	

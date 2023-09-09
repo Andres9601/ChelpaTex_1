@@ -18,23 +18,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class MoldeItemPK implements Serializable{
-	
- 	/**
- * 
- */
-private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 1L;
 
 	
-	 	@Basic(optional = false)
-	    @Column(name = "id_item")
+ 	@Basic(optional = false)
+    @Column(name = "id_item")
+    private Long idItem;
 
-	    private Long idItem;
-
-	    @Basic(optional = false)
-	    @Column(name = "id_molde")
-
-	    private Long idMolde;
-	
-	
-
+    @Basic(optional = false)
+    @Column(name = "id_molde")
+    private Long idMolde;
 }

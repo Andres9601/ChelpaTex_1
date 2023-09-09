@@ -46,9 +46,5 @@ public class Dominio {
 		this.nombre = nombre;
 		this.activo = activo;
 	}
-	
-	
-
-	
 
 }

@@ -17,23 +17,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class ColeccionDisenoPK implements Serializable{
-	
- 	/**
- * 
- */
-private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 1L;
 
 	
-	 	@Basic(optional = false)
-	    @Column(name = "id_diseno")
+ 	@Basic(optional = false)
+    @Column(name = "id_diseno")
 
-	    private Long idDiseno;
+    private Long idDiseno;
 
-	    @Basic(optional = false)
-	    @Column(name = "id_coleccion")
+    @Basic(optional = false)
+    @Column(name = "id_coleccion")
 
-	    private Long idColeccion;
-	
-	
-
+    private Long idColeccion;
 }

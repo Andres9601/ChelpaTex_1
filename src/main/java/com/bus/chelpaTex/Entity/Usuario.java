@@ -1,9 +1,12 @@
 package com.bus.chelpaTex.Entity;
 
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -19,16 +22,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "USUARIO")
 public class Usuario {
 	
-	public static final String ENTIDAD_USUARIO_ID_USUARIO = "idUsuario";
-	public static final String ENTIDAD_USUARIO_EMAIL = "email";
-	public static final String ENTIDAD_USUARIO_NOMBRE= "nombre";
-	public static final String ENTIDAD_USUARIO_TELEFONO= "telefono";
-	public static final String ENTIDAD_USUARIO_ACTIVO= "activo";
-	private static final String[] ATRIBUTOS_ENTIDAD_USUARIO = { ENTIDAD_USUARIO_ID_USUARIO, ENTIDAD_USUARIO_EMAIL,ENTIDAD_USUARIO_NOMBRE, ENTIDAD_USUARIO_TELEFONO,
-			ENTIDAD_USUARIO_ACTIVO };
-	
-	
-
 	@Id
 	@Column(name = "id_usuario")
 	private String idUsuario;
@@ -45,30 +38,6 @@ public class Usuario {
 	@Column(name = "activo")
 	private Boolean activo;
 	
-	/*@ManyToOne(optional = false)
-	@JoinColumn(name= "id_rol")
-	private UsuarioRol idRol;
-	*/
-
-	
-	
-	
-	
-	public static boolean contieneAtributo(String atributo) {
-	boolean contiene = false;
-	for (final String atr : ATRIBUTOS_ENTIDAD_USUARIO) {
-		if (atr.equals(atributo)) {
-			contiene = true;
-		}
-	}
-
-	return contiene;
-	}
-
-
-	public static String[] getAtributosEntidadUsuario() {
-	return ATRIBUTOS_ENTIDAD_USUARIO;
-	}
-	
-
+	@OneToMany(mappedBy = "usuario")
+	private List<UsuarioRol> usuarioRols;
 }

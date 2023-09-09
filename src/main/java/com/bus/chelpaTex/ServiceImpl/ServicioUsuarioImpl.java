@@ -1,14 +1,14 @@
 package com.bus.chelpaTex.ServiceImpl;
 
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-
+import java.util.stream.Collectors;
+import javax.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.bus.chelpaTex.DTO.RegistroDTO;
 import com.bus.chelpaTex.DTO.RolDTO;
 import com.bus.chelpaTex.DTO.UsuarioDTO;
@@ -21,9 +21,12 @@ import com.bus.chelpaTex.Service.ServicioUsuario;
 import com.bus.chelpaTex.Service.ServicioUsuarioRol;
 
 @Service
+@Transactional
 public class ServicioUsuarioImpl implements ServicioUsuario {
 	
 	private static final Logger logger =  Logger.getLogger(ServicioUsuario.class.getName());
+	
+	ModelMapper modelMapper = new ModelMapper();
 	
 	@Autowired
 	ManejadorUsuario manejadorUsuario;
@@ -37,38 +40,20 @@ public class ServicioUsuarioImpl implements ServicioUsuario {
 	@Override
 	public List<UsuarioDTO> consultar() {
 		List<Usuario> usuariosTemp = manejadorUsuario.findAll();
-		List<UsuarioDTO> usuarios= new ArrayList<UsuarioDTO>();
-		for (Usuario usuarioTemp:usuariosTemp) {
-			UsuarioDTO usuarioDto = new UsuarioDTO();
-			usuarioDto.setIdUsuario(usuarioTemp.getIdUsuario());
-			usuarioDto.setEmail(usuarioTemp.getEmail());
-			usuarioDto.setNombre(usuarioTemp.getNombre());
-			usuarioDto.setTelefono(usuarioTemp.getTelefono());
-			usuarioDto.setActivo(usuarioTemp.getActivo());
-			usuarios.add(usuarioDto);
-		}
-		return usuarios;
+		return usuariosTemp.stream().map(usuario -> modelMapper.map(usuario, UsuarioDTO.class)).collect(Collectors.toList());
 	}
 
 	@Override
 	public UsuarioDTO crear(UsuarioDTO usuarioDTO) throws InvalidParameterException{
 		Optional<Usuario> usuarioExiste = manejadorUsuario.findOneByEmail(usuarioDTO.getEmail());
-			if(!usuarioExiste.isPresent()) {
-			Usuario usuario = new Usuario();
-			usuario.setIdUsuario(usuarioDTO.getIdUsuario());	
-			usuario.setEmail(usuarioDTO.getEmail());
-			usuario.setNombre(usuarioDTO.getNombre());
-			usuario.setTelefono(usuarioDTO.getTelefono());
-			usuario.setActivo(usuarioDTO.getActivo());
-			manejadorUsuario.save(usuario);
-			return usuarioDTO;
+		if(usuarioExiste.isPresent()){
+			logger.info("Parametros invalidos para crear un Usuario");
+			throw new InvalidParameterException("Parametros invalidos para crear un Usuario");
 		}
-			else {
-				logger.info("Parametros invalidos para crear un Usuario");
-				throw new InvalidParameterException("Parametros invalidos para crear un Usuario");
-			}
-	}
-			
+		Usuario usuario = modelMapper.map(usuarioDTO, Usuario.class);
+		manejadorUsuario.save(usuario);
+		return usuarioDTO;
+	}			
 
 	@Override
 	public RegistroDTO registrarUsuario(RegistroDTO registroDTO) throws Exception {

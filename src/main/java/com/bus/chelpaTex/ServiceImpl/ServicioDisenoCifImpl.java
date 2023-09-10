@@ -6,6 +6,8 @@ import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,7 @@ import com.bus.chelpaTex.Repo.ManejadorDisenoCif;
 import com.bus.chelpaTex.Service.ServicioDisenoCif;
 
 @Service
+@Transactional
 public class ServicioDisenoCifImpl implements ServicioDisenoCif{
 	
 	private static final Logger logger =  Logger.getLogger(ServicioDisenoCif.class.getName());

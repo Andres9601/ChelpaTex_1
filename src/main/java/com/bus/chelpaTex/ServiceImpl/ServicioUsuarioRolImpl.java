@@ -4,6 +4,8 @@ package com.bus.chelpaTex.ServiceImpl;
 import java.security.InvalidParameterException;
 import java.util.logging.Logger;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import com.bus.chelpaTex.Repo.ManejadorUsuarioRol;
 import com.bus.chelpaTex.Service.ServicioUsuarioRol;
 
 @Service
+@Transactional
 public class ServicioUsuarioRolImpl implements ServicioUsuarioRol {
 	
 	private static final Logger logger =  Logger.getLogger(ServicioUsuarioRol.class.getName());

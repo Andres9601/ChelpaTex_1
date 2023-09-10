@@ -3,6 +3,8 @@ package com.bus.chelpaTex.ServiceImpl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.bus.chelpaTex.Repo.ManejadorMaquila;
 import com.bus.chelpaTex.Service.ServicioDisenoMaquila;
 
 @Service
+@Transactional
 public class ServicioDisenoMaquilaImpl implements ServicioDisenoMaquila {
 	
 	//private static final Logger logger =  Logger.getLogger(ServicioDisenoMaquila.class.getName());

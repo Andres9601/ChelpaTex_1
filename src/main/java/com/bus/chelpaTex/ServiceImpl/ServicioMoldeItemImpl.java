@@ -3,6 +3,8 @@ package com.bus.chelpaTex.ServiceImpl;
 import java.security.InvalidParameterException;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.bus.chelpaTex.Repo.ManejadorMoldeItem;
 import com.bus.chelpaTex.Service.ServicioMoldeItem;
 
 @Service
+@Transactional
 public class ServicioMoldeItemImpl implements ServicioMoldeItem{
 	
 	//private static final Logger logger =  Logger.getLogger(ServicioMoldeItem.class.getName());

@@ -3,6 +3,8 @@ package com.bus.chelpaTex.ServiceImpl;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import com.bus.chelpaTex.Service.ServicioDominio;
 
 
 @Service
+@Transactional
 public class ServicioDominioImpl implements ServicioDominio{
 	
 	private static final Logger logger =  Logger.getLogger(ServicioDominio.class.getName());

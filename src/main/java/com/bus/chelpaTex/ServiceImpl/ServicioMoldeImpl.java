@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import com.bus.chelpaTex.Service.ServicioMolde;
 import com.bus.chelpaTex.Service.Utils.ServiceUtil;
 
 @Service
+@Transactional
 public class ServicioMoldeImpl implements ServicioMolde {
 	
 	private static final Logger logger =  Logger.getLogger(ServicioMolde.class.getName());

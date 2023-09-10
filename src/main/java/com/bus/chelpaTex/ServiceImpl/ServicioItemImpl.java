@@ -5,6 +5,8 @@ import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ import com.bus.chelpaTex.Service.ServicioItem;
 import com.bus.chelpaTex.Service.Utils.ServiceUtil;
 
 @Service
+@Transactional
 public class ServicioItemImpl implements ServicioItem{
 	
 	private static final Logger logger =  Logger.getLogger(ServicioItem.class.getName());

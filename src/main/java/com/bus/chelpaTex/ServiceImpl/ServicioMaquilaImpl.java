@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.bus.chelpaTex.Service.ServicioMaquila;
 import com.bus.chelpaTex.Service.Utils.ServiceUtil;
 
 @Service
+@Transactional
 public class ServicioMaquilaImpl implements ServicioMaquila{
 	
 	private static final Logger logger =  Logger.getLogger(ServicioMaquila.class.getName());

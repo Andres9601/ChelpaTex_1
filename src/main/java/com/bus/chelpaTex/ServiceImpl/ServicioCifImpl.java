@@ -3,6 +3,7 @@ package com.bus.chelpaTex.ServiceImpl;
 import java.security.InvalidParameterException;
 import java.util.logging.Logger;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,20 +18,15 @@ public class ServicioCifImpl implements ServicioCif{
 	private static final Logger logger =  Logger.getLogger(ServicioCif.class.getName());
 
 
+	ModelMapper modelMapper = new ModelMapper();
+	
 	@Autowired
 	ManejadorCif manejadorCif;
 	
 	@Override
 	public CifDTO crear(CifDTO cifDTO) {
 		try {
-			Cif cif = new Cif();
-			cif.setIdCif(cifDTO.getIdCif());
-			cif.setTipoCif(cifDTO.getTipoCif());
-			cif.setNombre(cifDTO.getNombre());
-			cif.setValor(cifDTO.getValor());
-			cif.setPeriodo(cifDTO.getPeriodo());
-			cif.setProductividadPeriodo(cifDTO.getProductividadPeriodo());
-			cif.setPorcentajeCif(cifDTO.getPorcentajeCif());
+			Cif cif = modelMapper.map(cifDTO, Cif.class);
 			cif.setActivo(true);
 			manejadorCif.save(cif);
 			return cifDTO;
